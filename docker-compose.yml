@@ -1,0 +1,22 @@
+version: '2'
+services:
+  eureka:
+    build: microservice-ecms-eureka-server
+    ports:
+    - 8761:8761
+  auth-server:
+    build: microservice-ecms-authserver
+    ports:
+    - 8585:8585
+  transcoding-service:
+    build: microservice-ecms-transcoding
+    ports:
+    - 8080:8080
+    links:
+    - eureka
+  notification-service:
+    build: microservice-ecms-transcoding
+    ports:
+    - 8080:8080
+    links:
+    - eureka
