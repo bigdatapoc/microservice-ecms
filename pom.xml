@@ -20,7 +20,6 @@
 		<module>microservice-ecms-transcoding</module>
 		<module>microservice-ecms-authserver</module>
 		<module>microservice-ecms-eureka-server</module>
-		<module>microservice-ecms-notofication</module
 	</modules>
 
 	<properties>
