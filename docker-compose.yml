@@ -8,9 +8,13 @@ services:
     build: microservice-ecms-authserver
     ports:
     - 8585:8585
+  gateway-service:
+    build: microservice-ecms-gateway-service
+    ports:
+    - 8765:8765
   transcoding-service:
     build: microservice-ecms-transcoding
-    ports:
+    ports:  
     - 8080:8080
     links:
     - eureka
