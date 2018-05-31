@@ -14,9 +14,3 @@ services:
     - 8080:8080
     links:
     - eureka
-  notification-service:
-    build: microservice-ecms-transcoding
-    ports:
-    - 8080:8080
-    links:
-    - eureka
