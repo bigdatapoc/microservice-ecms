@@ -4,10 +4,6 @@ services:
     build: microservice-ecms-eureka-server
     ports:
     - 8761:8761
-  auth-server:
-    build: microservice-ecms-authserver
-    ports:
-    - 8585:8585
   gateway-service:
     build: microservice-ecms-gateway-service
     ports:

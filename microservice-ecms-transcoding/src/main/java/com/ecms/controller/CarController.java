@@ -22,9 +22,6 @@ import com.ecms.exception.ConstraintsViolationException;
 import com.ecms.exception.EntityNotFoundException;
 import com.ecms.service.car.CarService;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-
 /**
  * All operations with a car will be routed by this controller.
  * <p/>
@@ -44,8 +41,6 @@ public class CarController
     }
 
 
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")})
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CarDTO createCar(@Valid @RequestBody CarDTO carDTO) throws ConstraintsViolationException
@@ -55,8 +50,6 @@ public class CarController
     }
 
 
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")})
     @GetMapping
     public List<CarDTO> findCars() throws ConstraintsViolationException, EntityNotFoundException
     {
@@ -64,8 +57,6 @@ public class CarController
     }
 
 
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")})
     @PutMapping("/{carId}")
     public CarDTO updateCar(@PathVariable(value = "carId") Long carId, @Valid @RequestBody CarDTO carDTO)
         throws ConstraintsViolationException, EntityNotFoundException
@@ -75,8 +66,6 @@ public class CarController
     }
 
 
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")})
     @DeleteMapping("/{carId}")
     public void deleteCar(@Valid @PathVariable long carId) throws EntityNotFoundException
     {
