@@ -1,6 +1,13 @@
 package com.ecms;
 
 import com.ecms.util.LoggingInterceptor;
+
+import net.bramp.ffmpeg.FFmpeg;
+import net.bramp.ffmpeg.FFprobe;
+import net.bramp.ffmpeg.builder.FFmpegBuilder;
+
+import java.io.IOException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -16,7 +23,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication
-@EnableDiscoveryClient
 public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
@@ -36,9 +42,28 @@ public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdap
 	}
 
 	private ApiInfo generateApiInfo() {
-		return new ApiInfo("Transcoding Service",
-				"This service is to.",
-				"Version 1.0 - mw", "urn:tos", "transcoding@hcl.com", "Apache 2.0",
-				"http://www.apache.org/licenses/LICENSE-2.0");
+		return new ApiInfo("Transcoding Service", "This service is to.", "Version 1.0 - mw", "urn:tos",
+				"transcoding@hcl.com", "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
 	}
+
+	@Bean
+	public FFmpeg ffmpeg() throws IOException {
+
+		return new FFmpeg(
+				"D:\\Users\\kandalakar.r\\Documents\\Softwares\\ffmpeg-20180529-ea0010b-win64-static\\ffmpeg-20180529-ea0010b-win64-static\\bin\\ffmpeg");
+	}
+
+	@Bean
+	public FFprobe ffprobe() throws IOException {
+
+		return new FFprobe(
+				"D:\\Users\\kandalakar.r\\Documents\\Softwares\\ffmpeg-20180529-ea0010b-win64-static\\ffmpeg-20180529-ea0010b-win64-static\\bin\\ffprobe");
+	}
+
+	@Bean
+	public FFmpegBuilder builder() throws IOException {
+
+		return new FFmpegBuilder();
+	}
+
 }
