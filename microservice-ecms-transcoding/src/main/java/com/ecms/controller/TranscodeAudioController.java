@@ -1,37 +1,71 @@
 package com.ecms.controller;
 
-import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.ecms.service.transcode.TranscodService;
-
+import com.ecms.exception.ExecuteCommandFailedException;
+import com.ecms.service.transcode.Impl.TranscodServiceImpl;
 
 @RestController
 @RequestMapping(value = "/transcode/audio")
 public class TranscodeAudioController {
 
 	@Autowired
-	private TranscodService transcodService;
+	private TranscodServiceImpl transcodService;
 
-	/* api to change audio format */
-	@GetMapping("/audioformat/{format}")
-	public ResponseEntity<?> transcodeAudioFile(@PathVariable String format) throws IOException, InterruptedException {
+	/*
+	 * api to change audio format
+	 * 
+	 */
+	@PostMapping("/format")
+	public ResponseEntity<?> transcodeAudioFile(@RequestParam("file") MultipartFile mediaFile)
+			throws ExecuteCommandFailedException {
 
-		if (transcodService.changeAudioFormat(format)) {
+		if (mediaFile.getContentType().contains("audio")) {
 
-			return ResponseEntity.ok("Format of Audio file changed successfully");
+			if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
 
+				return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+			}
+
+			this.transcodService.changeAudioFormat(mediaFile);
+
+			return new ResponseEntity<>("Uploded and transcoded "+ mediaFile.getOriginalFilename() +" File",
+					HttpStatus.OK);
 		} else {
-			return ResponseEntity.ok("Format of Audio file Not changed");
 
+			return new ResponseEntity<>("please select Audio file! This is " + mediaFile.getContentType() + " file",
+					HttpStatus.OK);
+		}
+	}
+
+	@PostMapping("/demo")
+	public ResponseEntity<?> transcodeAudioFiledemo(@RequestParam("file") MultipartFile mediaFile)
+			{
+
+		if (mediaFile.getContentType().contains("video")) {
+			System.out.println("video file ");
+		} else {
+			System.out.println("not video file");
 		}
 
+		System.out.println(mediaFile.getContentType());
+		if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
+
+			return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+		}
+
+		// this.transcodService.changeAudioFormat(mediaFile);
+		return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
+				HttpStatus.OK);
 	}
 
 }

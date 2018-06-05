@@ -1,81 +1,99 @@
 package com.ecms.controller;
 
-import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.ecms.service.transcode.TranscodService;
-
+import com.ecms.exception.ExecuteCommandFailedException;
+import com.ecms.service.transcode.Impl.TranscodServiceImpl;
 
 @RestController
 @RequestMapping(value = "/transcode/video")
 public class TranscodeVideoController {
 
 	@Autowired
-	private TranscodService transcodService;
+	private TranscodServiceImpl transcodService;
 
-	/* api to change video format */
-	@GetMapping("/videoformat/{format}")
-	public ResponseEntity<?> transcodeVideoFormat(@PathVariable String format)
-			throws IOException, InterruptedException {
+	/* API to change video format */
+	@PostMapping("/format/{resformat}")
+	public ResponseEntity<?> transcodeVideoFormat(@RequestParam("file") MultipartFile mediaFile,@PathVariable String resformat ) throws ExecuteCommandFailedException
+	 {
 
-		if (transcodService.changeVideoFormate(format)) {
+		if (mediaFile.getContentType().contains("video")) {
 
-			return ResponseEntity.ok("Format of Video file changed successfully");
+				if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
+	
+					return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+				}
+	
+				this.transcodService.changeVideoFormat(mediaFile, resformat);
+				return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
+						HttpStatus.OK);
 
 		} else {
-			return ResponseEntity.ok("Format of Video file Not changed");
+
+				return new ResponseEntity<>("please select video file! This is " + mediaFile.getContentType() + " file",
+					HttpStatus.OK);
+		}
+	}
+
+	/* API to change video resolution */
+	@PostMapping("/resolution")
+	public ResponseEntity<?> transcodeVideResolution(@RequestParam("file") MultipartFile mediaFile) throws ExecuteCommandFailedException
+			 {
+
+		if (mediaFile.getContentType().contains("video")) {
+
+				if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
+	
+					return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+	
+				}
+	
+				this.transcodService.changeVideoResolution(mediaFile);
+	
+				return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
+						HttpStatus.OK);
+
+		} else {
+
+				return new ResponseEntity<>("please select video file! This is " + mediaFile.getContentType() + " file",
+					HttpStatus.OK);
+
+		}
+	}
+
+	/* API to change video to audio format */
+	@PostMapping("/audio")
+	public ResponseEntity<?> transcodeVideoToAudio(@RequestParam("file") MultipartFile mediaFile) throws ExecuteCommandFailedException
+			 {
+
+		if (mediaFile.getContentType().contains("video")) {
+
+				if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
+	
+					return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+	
+				}
+	
+				this.transcodService.convertVideoToAudio(mediaFile);
+	
+				return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
+						HttpStatus.OK);
+		} else {
+
+				return new ResponseEntity<>("please select video file! This is " + mediaFile.getContentType() + " file",
+					HttpStatus.OK);
 
 		}
 
 	}
 
-	/* api to change video resolution */
-	@GetMapping("/resolution/{filename}")
-	public ResponseEntity<?> transcodeVideResolution(@PathVariable String filename ) throws IOException, InterruptedException {
-
-		if (transcodService.changeVideoResolution(filename)) {
-
-			return ResponseEntity.ok("Resolution of Video file changed successfully");
-
-		} else {
-			return ResponseEntity.ok("Resolution of Video file Not changed");
-
-		}
-	}
-
-	/* api to change video to audio format */
-	@GetMapping("/audio/{format}")
-	public ResponseEntity<?> transcodeVideoToAudio(@PathVariable String format) throws IOException, InterruptedException {
-
-		if (transcodService.convertVideoToAudio(format)) {
-
-			return ResponseEntity.ok("Convert Video file to audio successfully");
-
-		} else {
-			return ResponseEntity.ok("Convert Video file to audio is failed");
-
-		}
-
-	}
-
-	/* api to create video from images */
-	@GetMapping("/image")
-	public ResponseEntity<?> transcodeImagesToVideo() throws IOException, InterruptedException {
-
-		if (transcodService.convertImgesToVideo()) {
-
-			return ResponseEntity.ok("Convert images to video file successfully");
-
-		} else {
-			return ResponseEntity.ok("Convert images to video file is failed");
-
-		}
-
-	}
 }
