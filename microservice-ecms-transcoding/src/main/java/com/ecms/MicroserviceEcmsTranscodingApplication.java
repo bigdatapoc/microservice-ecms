@@ -1,25 +1,13 @@
 package com.ecms;
-
-
-
-import net.bramp.ffmpeg.FFmpeg;
-import net.bramp.ffmpeg.FFprobe;
-import net.bramp.ffmpeg.builder.FFmpegBuilder;
-
 import java.io.IOException;
-
-import javax.jcr.Repository;
-import javax.jcr.RepositoryFactory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import com.ecms.util.LoggingInterceptor;
-
+import net.bramp.ffmpeg.FFmpeg;
+import net.bramp.ffmpeg.FFprobe;
+import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -35,10 +23,6 @@ public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdap
 		SpringApplication.run(MicroserviceEcmsTranscodingApplication.class, args);
 	}
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoggingInterceptor()).addPathPatterns("/**");
-	}
 	
 	@Bean
 	public Docket docket() {
@@ -56,14 +40,14 @@ public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdap
 	public FFmpeg ffmpeg() throws IOException {
 
 		return new FFmpeg(
-				"D:\\Users\\kandalakar.r\\Documents\\Softwares\\ffmpeg-20180529-ea0010b-win64-static\\ffmpeg-20180529-ea0010b-win64-static\\bin\\ffmpeg");
+				"\\ffmpeg-git-20180526-64bit-static\\ffmpeg\\ffmpeg");
 	}
 
 	@Bean
 	public FFprobe ffprobe() throws IOException {
 
 		return new FFprobe(
-				"D:\\Users\\kandalakar.r\\Documents\\Softwares\\ffmpeg-20180529-ea0010b-win64-static\\ffmpeg-20180529-ea0010b-win64-static\\bin\\ffprobe");
+				"\\ffmpeg-git-20180526-64bit-static\\ffmpeg\\ffprobe");
 	}
 
 	@Bean
