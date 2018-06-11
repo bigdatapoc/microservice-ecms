@@ -27,6 +27,8 @@ public class TranscodeVideoController {
 	 {
 
 		if (mediaFile.getContentType().contains("video")) {
+			
+				System.out.println(mediaFile.getContentType());
 
 				if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
 	

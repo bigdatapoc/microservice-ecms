@@ -48,14 +48,13 @@ public class TranscodServiceImpl implements TranscodService{
 		String fileName = tempFilename.substring(0,tempFilename.indexOf(".")); 
 
 		
-		this.builder.setInput(TranscodeConstant.InputPath+"\\"+mediaFile.getOriginalFilename())
+		this.builder.setInput(TranscodeConstant.InputPath+mediaFile.getOriginalFilename())
 				.overrideOutputFiles(true)
-				.addOutput(TranscodeConstant.OutputPath+"\\"+fileName+"."+format)
-				.setFormat("mp3").setVideoFrameRate(25).setVideoCodec("libx264")
+				.addOutput(TranscodeConstant.OutputPath+fileName+"."+format)
+				.setVideoFrameRate(25).setVideoCodec("libx264")
 				.setStrict(FFmpegBuilder.Strict.EXPERIMENTAL)
 				.setAudioCodec("copy")
 				.done();
-
 	
 		try {
 			FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
@@ -85,9 +84,9 @@ public class TranscodServiceImpl implements TranscodService{
 		String fileName = tempFileName.substring(0,tempFileName.indexOf(".")); 
 
 		
-		this.builder.setInput(TranscodeConstant.InputPath+"\\Resolution\\"+mediaFile.getOriginalFilename())
+		this.builder.setInput(TranscodeConstant.InputPath+mediaFile.getOriginalFilename())
 				.overrideOutputFiles(true)
-				.addOutput(TranscodeConstant.OutputPath+"\\"+fileName+".mp4")
+				.addOutput(TranscodeConstant.OutputPath+fileName+".mp4")
 				.setVideoResolution(640,360)
 				.setAudioCodec("copy")
 				.setVideoBitRate(1000000)
@@ -121,9 +120,9 @@ public class TranscodServiceImpl implements TranscodService{
 		String fileName = tempFileName.substring(0,tempFileName.indexOf(".")); 
 
 
-		this.builder.setInput(TranscodeConstant.InputPath+"\\Samplevideo\\"+mediaFile.getOriginalFilename())
+		this.builder.setInput(TranscodeConstant.InputPath+mediaFile.getOriginalFilename())
 				.overrideOutputFiles(true)
-				.addOutput(TranscodeConstant.OutputPath+"\\Convertedvideo\\"+fileName+".mp3")
+				.addOutput(TranscodeConstant.OutputPath+fileName+".mp3")
 				.setAudioCodec("libmp3lame")
 				.addExtraArgs("-q:a","2")
 				.done();
@@ -154,9 +153,9 @@ public class TranscodServiceImpl implements TranscodService{
 		String tempFileName = mediaFile.getOriginalFilename();
 		String fileName = tempFileName.substring(0,tempFileName.indexOf(".")); 
 
-		this.builder.setInput(TranscodeConstant.InputPath+"\\Audioformat\\"+mediaFile.getOriginalFilename())
+		this.builder.setInput(TranscodeConstant.InputPath+mediaFile.getOriginalFilename())
 				.overrideOutputFiles(true)
-				.addOutput(TranscodeConstant.OutputPath+"\\Audio_format\\" + fileName + ".mp3")
+				.addOutput(TranscodeConstant.OutputPath+fileName + ".mp3")
 				.setAudioCodec("libmp3lame")
 				.addExtraArgs("-q:a","2")
 				.done();

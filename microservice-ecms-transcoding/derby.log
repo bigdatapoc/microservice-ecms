@@ -1,0 +1,26 @@
+----------------------------------------------------------------
+Mon Jun 11 11:13:07 IST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0163-ed5e-8f93-0000050eb908 
+on database directory D:\Users\kandalakar.r\git\OTT POC\microservice-ecms\microservice-ecms-transcoding\target\repo\version\db with class loader sun.misc.Launcher$AppClassLoader@764c12b6 
+Loaded from file:/D:/Users/kandalakar.r/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_151-b12
+user.dir=D:\Users\kandalakar.r\git\OTT POC\microservice-ecms\microservice-ecms-transcoding
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Jun 11 11:13:08 IST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance 888c4022-0163-ed5e-8f93-0000050eb908 
+on database directory D:\Users\kandalakar.r\git\OTT POC\microservice-ecms\microservice-ecms-transcoding\target\repo\workspaces\default\db with class loader sun.misc.Launcher$AppClassLoader@764c12b6 
+Loaded from file:/D:/Users/kandalakar.r/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_151-b12
+user.dir=D:\Users\kandalakar.r\git\OTT POC\microservice-ecms\microservice-ecms-transcoding
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

@@ -8,10 +8,13 @@ import net.bramp.ffmpeg.builder.FFmpegBuilder;
 
 import java.io.IOException;
 
+import javax.jcr.Repository;
+import javax.jcr.RepositoryFactory;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
@@ -23,6 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication
+@ImportResource("classpath:/jcr-config.xml")
 public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
@@ -50,14 +54,14 @@ public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdap
 	public FFmpeg ffmpeg() throws IOException {
 
 		return new FFmpeg(
-				"D:\\Users\\kandalakar.r\\Documents\\Softwares\\ffmpeg-20180529-ea0010b-win64-static\\ffmpeg-20180529-ea0010b-win64-static\\bin\\ffmpeg");
+				"/ffmpeg-git-20180526-64bit-static/ffmpeg");
 	}
 
 	@Bean
 	public FFprobe ffprobe() throws IOException {
 
 		return new FFprobe(
-				"D:\\Users\\kandalakar.r\\Documents\\Softwares\\ffmpeg-20180529-ea0010b-win64-static\\ffmpeg-20180529-ea0010b-win64-static\\bin\\ffprobe");
+				"/ffmpeg-git-20180526-64bit-static/ffprobe");
 	}
 
 	@Bean
@@ -65,5 +69,8 @@ public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdap
 
 		return new FFmpegBuilder();
 	}
-
+	
+		
+	
+		
 }
