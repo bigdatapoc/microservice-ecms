@@ -11,17 +11,15 @@ import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 
-
 /**
- * Service to transcode files uploaded by user
- * Implimented Business logic using FFmpeg library.
+ * Service to transcode files uploaded by user Implimented Business logic using
+ * FFmpeg library.
  * 
  */
 
 @Service
-public class TranscodServiceImpl implements TranscodService{
-	
-	
+public class TranscodServiceImpl implements TranscodService {
+
 	@Autowired
 	private FFmpeg ffmpeg;
 
@@ -31,31 +29,27 @@ public class TranscodServiceImpl implements TranscodService{
 	@Autowired
 	private FFmpegBuilder builder;
 
-	
-	
 	/**
 	 * Change video format of uploaded file into Different format
 	 *
-	 * @param mediaFile and format
+	 * @param mediaFile
+	 *            and format
 	 * @return
 	 * @throws ExecuteCommandFailedException
-	 *             if a FFmpeg failes to execute command created using FFmpegBuilder .
-	 */	
+	 *             if a FFmpeg failes to execute command created using FFmpegBuilder
+	 *             .
+	 */
 	@Override
-	public void changeVideoFormat(MultipartFile mediaFile,String format) throws ExecuteCommandFailedException {
-		
-		String tempFilename = mediaFile.getOriginalFilename();
-		String fileName = tempFilename.substring(0,tempFilename.indexOf(".")); 
+	public void changeVideoFormat(MultipartFile mediaFile, String format) throws ExecuteCommandFailedException {
 
-		
-		this.builder.setInput(TranscodeConstant.InputPath+mediaFile.getOriginalFilename())
-				.overrideOutputFiles(true)
-				.addOutput(TranscodeConstant.OutputPath+fileName+"."+format)
-				.setVideoFrameRate(25).setVideoCodec("libx264")
-				.setStrict(FFmpegBuilder.Strict.EXPERIMENTAL)
-				.setAudioCodec("copy")
-				.done();
-	
+		String tempFilename = mediaFile.getOriginalFilename();
+		String fileName = tempFilename.substring(0, tempFilename.indexOf("."));
+
+		this.builder.setInput(mediaFile.getOriginalFilename()).overrideOutputFiles(true)
+				.addOutput(TranscodeConstant.OutputPath + "\\OutputfileFormat\\" + fileName + "." + format)
+				.setVideoFrameRate(25).setVideoCodec("libx264").setStrict(FFmpegBuilder.Strict.EXPERIMENTAL)
+				.setAudioCodec("copy").done();
+
 		try {
 			FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
 			executor.createJob(builder).run();
@@ -63,34 +57,29 @@ public class TranscodServiceImpl implements TranscodService{
 			// TODO Auto-generated catch block
 			throw new ExecuteCommandFailedException(e.getMessage());
 		}
-		
 
 	}
 
-	
 	/**
-	 * Change video resolution into 640*360  
+	 * Change video resolution into 640*360
 	 *
 	 * @param mediaFile
 	 * @return
 	 * @throws ExecuteCommandFailedException
-	 *             if a FFmpeg failes to execute command created using FFmpegBuilder .
-	 */	
+	 *             if a FFmpeg failes to execute command created using FFmpegBuilder
+	 *             .
+	 */
 	@Override
 	public void changeVideoResolution(MultipartFile mediaFile) throws ExecuteCommandFailedException {
 		// TODO Auto-generated method stub
 
 		String tempFileName = mediaFile.getOriginalFilename();
-		String fileName = tempFileName.substring(0,tempFileName.indexOf(".")); 
+		String fileName = tempFileName.substring(0, tempFileName.indexOf("."));
 
-		
-		this.builder.setInput(TranscodeConstant.InputPath+mediaFile.getOriginalFilename())
+		this.builder.setInput(TranscodeConstant.InputPath + "\\Resolution\\" + mediaFile.getOriginalFilename())
 				.overrideOutputFiles(true)
-				.addOutput(TranscodeConstant.OutputPath+fileName+".mp4")
-				.setVideoResolution(640,360)
-				.setAudioCodec("copy")
-				.setVideoBitRate(1000000)
-				.done();
+				.addOutput(TranscodeConstant.OutputPath + "\\OutputfileFormat\\" + fileName + ".mp4")
+				.setVideoResolution(640, 360).setAudioCodec("copy").setVideoBitRate(1000000).done();
 
 		try {
 			FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
@@ -102,30 +91,26 @@ public class TranscodServiceImpl implements TranscodService{
 
 	}
 
-	
-	
-	
 	/**
 	 * Covert video file into Audio(mp3) format
 	 *
-	 * @param mediaFile and format
+	 * @param mediaFile
+	 *            and format
 	 * @return
 	 * @throws ExecuteCommandFailedException
-	 *             if a FFmpeg failes to execute command created using FFmpegBuilder .
-	 */	
+	 *             if a FFmpeg failes to execute command created using FFmpegBuilder
+	 *             .
+	 */
 	@Override
 	public void convertVideoToAudio(MultipartFile mediaFile) throws ExecuteCommandFailedException {
-		
+
 		String tempFileName = mediaFile.getOriginalFilename();
-		String fileName = tempFileName.substring(0,tempFileName.indexOf(".")); 
+		String fileName = tempFileName.substring(0, tempFileName.indexOf("."));
 
-
-		this.builder.setInput(TranscodeConstant.InputPath+mediaFile.getOriginalFilename())
+		this.builder.setInput(TranscodeConstant.InputPath + "\\Samplevideo\\" + mediaFile.getOriginalFilename())
 				.overrideOutputFiles(true)
-				.addOutput(TranscodeConstant.OutputPath+fileName+".mp3")
-				.setAudioCodec("libmp3lame")
-				.addExtraArgs("-q:a","2")
-				.done();
+				.addOutput(TranscodeConstant.OutputPath + "\\AudioFormatedVideo\\" + fileName + ".mp3")
+				.setAudioCodec("libmp3lame").addExtraArgs("-q:a", "2").done();
 		try {
 			FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
 			executor.createJob(builder).run();
@@ -134,31 +119,28 @@ public class TranscodServiceImpl implements TranscodService{
 			throw new ExecuteCommandFailedException(e.getMessage());
 		}
 
-
-
 	}
-	
+
 	/**
 	 * Change audio format of uploaded file into mp3 format
 	 *
-	 * @param mediaFile 
+	 * @param mediaFile
 	 * @return
 	 * @throws ExecuteCommandFailedException
-	 *             if a FFmpeg failes to execute command created using FFmpegBuilder .
-	 */	
+	 *             if a FFmpeg failes to execute command created using FFmpegBuilder
+	 *             .
+	 */
 	@Override
 	public void changeAudioFormat(MultipartFile mediaFile) throws ExecuteCommandFailedException {
 		// TODO Auto-generated method stub
-		
-		String tempFileName = mediaFile.getOriginalFilename();
-		String fileName = tempFileName.substring(0,tempFileName.indexOf(".")); 
 
-		this.builder.setInput(TranscodeConstant.InputPath+mediaFile.getOriginalFilename())
+		String tempFileName = mediaFile.getOriginalFilename();
+		String fileName = tempFileName.substring(0, tempFileName.indexOf("."));
+
+		this.builder.setInput(TranscodeConstant.InputPath + "\\Sampleaudio\\" + mediaFile.getOriginalFilename())
 				.overrideOutputFiles(true)
-				.addOutput(TranscodeConstant.OutputPath+fileName + ".mp3")
-				.setAudioCodec("libmp3lame")
-				.addExtraArgs("-q:a","2")
-				.done();
+				.addOutput(TranscodeConstant.OutputPath + "\\FormatedAudio\\" + fileName + ".mp3")
+				.setAudioCodec("libmp3lame").addExtraArgs("-q:a", "2").done();
 
 		try {
 			FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
@@ -168,7 +150,6 @@ public class TranscodServiceImpl implements TranscodService{
 			throw new ExecuteCommandFailedException(e.getMessage());
 		}
 
+	}
 
-	}
-	
-	}
+}

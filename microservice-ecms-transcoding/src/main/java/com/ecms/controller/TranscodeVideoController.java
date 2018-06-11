@@ -1,6 +1,5 @@
 package com.ecms.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,50 +22,48 @@ public class TranscodeVideoController {
 
 	/* API to change video format */
 	@PostMapping("/format/{resformat}")
-	public ResponseEntity<?> transcodeVideoFormat(@RequestParam("file") MultipartFile mediaFile,@PathVariable String resformat ) throws ExecuteCommandFailedException
-	 {
+	public ResponseEntity<?> transcodeVideoFormat(@RequestParam("file") MultipartFile mediaFile,
+			@PathVariable String resformat) throws ExecuteCommandFailedException {
 
 		if (mediaFile.getContentType().contains("video")) {
-			
-				System.out.println(mediaFile.getContentType());
 
-				if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
-	
-					return new ResponseEntity<>("please select a file!", HttpStatus.OK);
-				}
-	
-				this.transcodService.changeVideoFormat(mediaFile, resformat);
-				return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
-						HttpStatus.OK);
+			if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
+
+				return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+			}
+
+			this.transcodService.changeVideoFormat(mediaFile, resformat);
+			return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
+					HttpStatus.OK);
 
 		} else {
 
-				return new ResponseEntity<>("please select video file! This is " + mediaFile.getContentType() + " file",
+			return new ResponseEntity<>("please select video file! This is " + mediaFile.getContentType() + " file",
 					HttpStatus.OK);
 		}
 	}
 
 	/* API to change video resolution */
 	@PostMapping("/resolution")
-	public ResponseEntity<?> transcodeVideResolution(@RequestParam("file") MultipartFile mediaFile) throws ExecuteCommandFailedException
-			 {
+	public ResponseEntity<?> transcodeVideResolution(@RequestParam("file") MultipartFile mediaFile)
+			throws ExecuteCommandFailedException {
 
 		if (mediaFile.getContentType().contains("video")) {
 
-				if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
-	
-					return new ResponseEntity<>("please select a file!", HttpStatus.OK);
-	
-				}
-	
-				this.transcodService.changeVideoResolution(mediaFile);
-	
-				return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
-						HttpStatus.OK);
+			if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
+
+				return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+
+			}
+
+			this.transcodService.changeVideoResolution(mediaFile);
+
+			return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
+					HttpStatus.OK);
 
 		} else {
 
-				return new ResponseEntity<>("please select video file! This is " + mediaFile.getContentType() + " file",
+			return new ResponseEntity<>("please select video file! This is " + mediaFile.getContentType() + " file",
 					HttpStatus.OK);
 
 		}
@@ -74,24 +71,24 @@ public class TranscodeVideoController {
 
 	/* API to change video to audio format */
 	@PostMapping("/audio")
-	public ResponseEntity<?> transcodeVideoToAudio(@RequestParam("file") MultipartFile mediaFile) throws ExecuteCommandFailedException
-			 {
+	public ResponseEntity<?> transcodeVideoToAudio(@RequestParam("file") MultipartFile mediaFile)
+			throws ExecuteCommandFailedException {
 
 		if (mediaFile.getContentType().contains("video")) {
 
-				if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
-	
-					return new ResponseEntity<>("please select a file!", HttpStatus.OK);
-	
-				}
-	
-				this.transcodService.convertVideoToAudio(mediaFile);
-	
-				return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
-						HttpStatus.OK);
+			if (mediaFile.isEmpty() && mediaFile.getSize() == 0) {
+
+				return new ResponseEntity<>("please select a file!", HttpStatus.OK);
+
+			}
+
+			this.transcodService.convertVideoToAudio(mediaFile);
+
+			return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
+					HttpStatus.OK);
 		} else {
 
-				return new ResponseEntity<>("please select video file! This is " + mediaFile.getContentType() + " file",
+			return new ResponseEntity<>("please select video file! This is " + mediaFile.getContentType() + " file",
 					HttpStatus.OK);
 
 		}

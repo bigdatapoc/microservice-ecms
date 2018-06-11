@@ -24,7 +24,7 @@ import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 
 @RestController
-public class ContentController {
+public class ContentController {/*
 
 	@Autowired
 	private JcrTemplate jcrTemplate;
@@ -38,9 +38,9 @@ public class ContentController {
 	@Autowired
 	private FFmpegBuilder builder;
 
-	/**
+	*//**
 	 * Adds node if it doesn't exist.
-	 */
+	 *//*
 
 	@GetMapping("/addnode")
 	public String addNodeRepository() {
@@ -158,4 +158,4 @@ public class ContentController {
 		});
 
 	}
-}
+*/}

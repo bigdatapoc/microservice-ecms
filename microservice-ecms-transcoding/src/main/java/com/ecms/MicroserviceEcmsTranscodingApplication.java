@@ -1,6 +1,6 @@
 package com.ecms;
 
-import com.ecms.util.LoggingInterceptor;
+
 
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFprobe;
@@ -17,6 +17,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.ecms.util.LoggingInterceptor;
+
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -26,7 +29,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication
-@ImportResource("classpath:/jcr-config.xml")
 public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
@@ -37,7 +39,7 @@ public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdap
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoggingInterceptor()).addPathPatterns("/**");
 	}
-
+	
 	@Bean
 	public Docket docket() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
@@ -54,14 +56,14 @@ public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdap
 	public FFmpeg ffmpeg() throws IOException {
 
 		return new FFmpeg(
-				"/ffmpeg-git-20180526-64bit-static/ffmpeg");
+				"D:\\Users\\kandalakar.r\\Documents\\Softwares\\ffmpeg-20180529-ea0010b-win64-static\\ffmpeg-20180529-ea0010b-win64-static\\bin\\ffmpeg");
 	}
 
 	@Bean
 	public FFprobe ffprobe() throws IOException {
 
 		return new FFprobe(
-				"/ffmpeg-git-20180526-64bit-static/ffprobe");
+				"D:\\Users\\kandalakar.r\\Documents\\Softwares\\ffmpeg-20180529-ea0010b-win64-static\\ffmpeg-20180529-ea0010b-win64-static\\bin\\ffprobe");
 	}
 
 	@Bean

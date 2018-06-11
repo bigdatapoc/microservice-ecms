@@ -1,8 +1,5 @@
 package com.ecms.controller;
 
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.ecms.exception.ExecuteCommandFailedException;
 import com.ecms.service.transcode.Impl.TranscodServiceImpl;
 
@@ -23,7 +19,6 @@ public class TranscodeAudioController {
 
 	@Autowired
 	private TranscodServiceImpl transcodService;
-	
 
 	/*
 	 * api to change audio format
@@ -42,7 +37,7 @@ public class TranscodeAudioController {
 
 			this.transcodService.changeAudioFormat(mediaFile);
 
-			return new ResponseEntity<>("Uploded and transcoded "+ mediaFile.getOriginalFilename() +" File",
+			return new ResponseEntity<>("Uploded and transcoded " + mediaFile.getOriginalFilename() + " File",
 					HttpStatus.OK);
 		} else {
 
@@ -50,7 +45,5 @@ public class TranscodeAudioController {
 					HttpStatus.OK);
 		}
 	}
-
-
 
 }
