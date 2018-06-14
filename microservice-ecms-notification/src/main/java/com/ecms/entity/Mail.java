@@ -11,8 +11,12 @@ import org.json.simple.JSONValue;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-
-
+/*
+ * Owner: @Himanshu_Nagpal
+ * This is Entity Class(Or Simply a Pojo).
+ * Which has all the Data Members for sending notifications to users. 
+ *  
+ */
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id", scope = Mail.class)
 public class Mail {
 
@@ -82,29 +86,29 @@ public class Mail {
 		this.templateVariableMap = templateVariableMap;
 	}
 
+	/*
+	 * This Function is manual Implemented For Converting the object in Json Format
+	 * 
+	 */
 	@Override
-	public String toString() {
+	public String toString()throws JSONException {
 		JSONObject jsonInfo = new JSONObject();
+
+		jsonInfo.put("from", this.from);
+		jsonInfo.put("to", this.to);
+		jsonInfo.put("subject", this.subject);
+		jsonInfo.put("content", this.content);
+
+		StringWriter out = new StringWriter();
 		try {
-			jsonInfo.put("from", this.from);
-			jsonInfo.put("to", this.to);
-			jsonInfo.put("subject", this.subject);
-			jsonInfo.put("content", this.content);
-			/*
-			 * JSONArray templateVariableArray = new JSONArray();
-			 * templateVariableArray.put(templateVariableMap);
-			 * 
-			 * jsonInfo.put("templateVariables", templateVariableArray);
-			 */
-			StringWriter out = new StringWriter();
 			JSONValue.writeJSONString(templateVariableMap, out);
-			String jsonText = out.toString();
-			jsonInfo.put("templateVariableMap", jsonText);
-		} catch (IOException | JSONException e) {
-			e.getStackTrace();
-			e.getLocalizedMessage();
-			e.getMessage();
+		} catch (IOException e) {
+		
+			//e.printStackTrace();
 		}
+		String jsonText = out.toString();
+		jsonInfo.put("templateVariableMap", jsonText);
+
 		return jsonInfo.toString();
 	}
 

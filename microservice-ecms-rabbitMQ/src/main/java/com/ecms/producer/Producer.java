@@ -21,10 +21,10 @@ public class Producer {
 	@Autowired
 	private AmqpTemplate amqpTemplate;
 
-	@Value("${jsa.rabbitmq.exchange}")
+	@Value("${mail.rabbitmq.exchange}")
 	private String exchange;
 
-	@Value("${jsa.rabbitmq.routingkey}")
+	@Value("${mail.rabbitmq.routingkey}")
 	private String routingkey;
 
 	public void produce(Mail mail) throws IOException, TimeoutException {

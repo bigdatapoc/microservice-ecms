@@ -1,16 +1,23 @@
 version: '2'
 services:
-  eureka:
-    build: microservice-ecms-eureka-server
+  rabbitmq:
+    image: rabbitmq:management
     ports:
-    - 8761:8761
-  gateway-service:
-    build: microservice-ecms-gateway-service
+    - "5672:5672"
+    - "15672:15672"
+  notification-service:
+    build: microservice-ecms-notification
     ports:
-    - 8765:8765
-  transcoding-service:
-    build: microservice-ecms-transcoding
-    ports:  
-    - 8080:8080
-    links:
-    - eureka
+    - "8094:8094"
+    expose:
+    - "8094"
+    links: 
+    - rabbitmq
+  rabbitmq-service:
+    build: microservice-ecms-rabbitMQ
+    ports:
+    - "8092:8092"
+    expose:
+    - "8092"
+    links: 
+    - rabbitmq

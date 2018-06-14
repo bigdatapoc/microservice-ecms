@@ -29,4 +29,10 @@ public class EventPublisherController {
 		String output = eventPublisherService.publishEvent(mail);
 		return ResponseEntity.ok(output);
 	}
+	
+	@RequestMapping("/demo")
+	public String demo() {
+		return "Wow Amazing, it works";
+	}
+	
 }
