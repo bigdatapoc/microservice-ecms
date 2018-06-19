@@ -11,10 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-/*
- * Owner: @Himanshu_Nagpal
- * This Class Acts as Configuration For RabbitMQ for listening messages on Queue.
- * So, we need to Convert "Serialize and De-serialize messages(On queue)" to Json Format. 
+/** 
+ * This Class Acts as Configuration For RabbitMQ for  "Serialize and De-serialize messages(On queue)" to Json Format.
+ * @author nagpalh 
  */
 
 @Configuration

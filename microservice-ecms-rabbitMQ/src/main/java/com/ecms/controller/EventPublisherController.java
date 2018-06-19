@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecms.entity.Mail;
 import com.ecms.service.EventPublisherService;
 
+/**
+ * Rest Controller for incoming request for sending mail
+ * 
+ * @author nagpalh
+ *
+ */
 @RestController
 @RequestMapping("/")
 public class EventPublisherController {
@@ -23,16 +29,19 @@ public class EventPublisherController {
 	@Autowired
 	EventPublisherService eventPublisherService;
 
+	/**
+	 * This Function route the message to service class welcome() function
+	 * 
+	 * @param mail
+	 * @return String
+	 * @throws IOException
+	 * @throws TimeoutException
+	 */
 	@RequestMapping(value = "/rabbitMq", consumes = "application/json")
 	public ResponseEntity<?> welcome(@RequestBody Mail mail) throws IOException, TimeoutException {
-		log.info("Logging Message => In EventPublisherController: " + mail);
+		log.info("In Event Publisher Controller, with message : " + mail);
 		String output = eventPublisherService.publishEvent(mail);
 		return ResponseEntity.ok(output);
 	}
-	
-	@RequestMapping("/demo")
-	public String demo() {
-		return "Wow Amazing, it works";
-	}
-	
+
 }

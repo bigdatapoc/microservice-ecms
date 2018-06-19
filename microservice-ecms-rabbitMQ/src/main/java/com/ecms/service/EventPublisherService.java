@@ -11,24 +11,32 @@ import org.springframework.stereotype.Service;
 import com.ecms.entity.Mail;
 import com.ecms.producer.Producer;
 
+/**
+ * Business Logic for sending notification
+ * @author nagpalh
+ *
+ */
 @Service
 public class EventPublisherService {
 	private static Logger log = LoggerFactory.getLogger(EventPublisherService.class);
 	@Autowired
 	private Producer producer;
 
+	/**
+	 * function that uses Producer for producing message to RabbitMq exchange(or Queue in layman language)
+	 * @param mail
+	 * @return String
+	 */
 	public String publishEvent(Mail mail) {
-		String response = "Unable to Produce Data on RabbitMq";
+		log.info("In Event Publisher Service , Ready to Pass message to 'RabbitMQ Producer' for sending it to Exchange");
+		String response;
 		try {
-			log.info("In  publishEvent() of EventPublisherService.class\n Data : " + mail);
-			producer.produce(mail);
-			response = "Data Produces on RabbitMq Successfully";
+			response = producer.produce(mail);
 		} catch (IOException | TimeoutException e) {
-			log.info("Exception Occurred");
 			response = "Exception Occurred Unable to Produce Data on RabbitMq";
-			e.printStackTrace();
+			log.info("Error Message: " + e.getMessage() + "\nException Class: " + e.getClass()
+					+ "\nCause of Exception: " + e.getCause() + "\nStack Trace oF Exception: " + e.getStackTrace());
 		}
-
 		return response;
 	}
 

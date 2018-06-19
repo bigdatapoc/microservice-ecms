@@ -12,7 +12,11 @@ import org.springframework.stereotype.Component;
 
 import com.ecms.MicroserviceEcmsRabbitMqApplication;
 import com.ecms.entity.Mail;
-
+/**
+ * This class will act as producer and will send notification on RabbitMQ Queue
+ * @author nagpalh
+ *
+ */
 @Component
 public class Producer {
 
@@ -27,8 +31,17 @@ public class Producer {
 	@Value("${mail.rabbitmq.routingkey}")
 	private String routingkey;
 
-	public void produce(Mail mail) throws IOException, TimeoutException {
-		log.info("In Producer(Ready For Producing Data to RabbitMq) : " + mail);
+	/**
+	 * 	Just for sending mail object to specific "exchange" with specified "routing key".
+	 * 		Now, that routing key is used by exchanges for routing message to the specific "Queue". 
+	 * 			
+	 * @param mail
+	 * @throws IOException
+	 * @throws TimeoutException
+	 */
+	public String produce(Mail mail) throws IOException, TimeoutException {
+		log.info("In Producer(Ready For Producing Data to RabbitMq)");
 		amqpTemplate.convertAndSend(exchange, routingkey, mail);
+		return "Data Produces on RabbitMq Successfully";
 	}
 }

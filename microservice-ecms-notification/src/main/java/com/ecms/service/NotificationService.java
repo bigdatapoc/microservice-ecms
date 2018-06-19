@@ -1,6 +1,7 @@
 package com.ecms.service;
 
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.CompletableFuture;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -10,26 +11,47 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.ecms.entity.Mail;
 
+/**
+ * This is Service Class For Writing Business Logic.
+ * 
+ * @author nagpalh
+ */
 @Service
 public class NotificationService {
 
+	/**
+	 * Object Used to send mail
+	 */
 	@Autowired
 	private JavaMailSender javamailSender;
 
+	/**
+	 * This object is used for processing template in "templates" folder on class path
+	 */
 	@Autowired
 	private SpringTemplateEngine templateEngine;
 
 	private static Logger log = LoggerFactory.getLogger(NotificationService.class);
 
-	public String sendMail(Mail mail) {
+	/**
+	 * Asynchronous function for Sending mail using thymeleaf engines
+	 * 
+	 * @param Mail
+	 * 
+	 * @return CompletableFuture<String> It is nothing but Just a String that we
+	 *         will receive from this function in future, Simply a JAVA-8 Feature.
+	 */
+	@Async
+	public CompletableFuture<String> sendMail(Mail mail) {
 
-		log.info("ServiceMethod : Sending Email with Thymeleaf HTML Template Example");
+		log.info("In Service.class sendMail Method");
 		String response = "Mail Sending Failed";
 		MimeMessage message = javamailSender.createMimeMessage();
 		MimeMessageHelper helper = null;
@@ -45,12 +67,13 @@ public class NotificationService {
 			helper.setSubject(mail.getSubject());
 			helper.setFrom(mail.getFrom());
 			javamailSender.send(message);
-			response = "Mail Has Been Successfully Send to : " + mail.getTo();
+			response = "Mail sent to : " + mail.getTo();
 		} catch (MessagingException e) {
 			response = "There Seems to be an error in Sending Mail, Please Check";
-			e.printStackTrace();
+			log.info("Error Message: " + e.getMessage() + "\nException Class: " + e.getClass()
+					+ "\nCause of Exception: " + e.getCause() + "\nStack Trace oF Exception: " + e.getStackTrace());
 		}
-		return response;
+		return CompletableFuture.completedFuture(response);
 	}
 
 }

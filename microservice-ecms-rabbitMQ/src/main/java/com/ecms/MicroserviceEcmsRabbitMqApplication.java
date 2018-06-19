@@ -5,6 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Entry Point For Application(Producing Data on RabbitMq Queue) 
+ * @author nagpalh
+ */
 @EnableSwagger2
 @SpringBootApplication
 //@EnableDiscoveryClient

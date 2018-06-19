@@ -11,17 +11,18 @@ import org.thymeleaf.templatemode.StandardTemplateModeHandlers;
 import java.nio.charset.StandardCharsets;
 
 
-/*
- * Owner: @Himanshu_Nagpal
- * This Class Acts as Configuration For Thymeleaf Templating Engine. 
+/**
+ * This Class Acts as Configuration For Thymeleaf Templating Engine.
+ * @author nagpalh
  */
 @EnableWebMvc
 @ComponentScan(basePackages = "com.ecms")
 @Configuration
 public class ThymeleafConfig {
 
-	/*
-	 * This Function Create Object that will Process Templates(or HTML Pages).  
+	/**
+	 * This Function Create Object that will Process Templates(or HTML Pages).
+	 * @return SpringTemplateEngine
 	 */
 	@Bean(name = "templateEngine")
 	public SpringTemplateEngine springTemplateEngine() {
@@ -30,8 +31,9 @@ public class ThymeleafConfig {
 		return templateEngine;
 	}
 
-	/*
-	 * This Function is used in creating SpringTemplateEngine Object. Which is further used in processing Templates(Or Html Pages)
+	/**
+	 * This Function is used in creating SpringTemplateEngine Object.
+	 * @return SpringResourceTemplateResolver
 	 */
 	@Bean
 	public SpringResourceTemplateResolver htmlTemplateResolver() {

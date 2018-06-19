@@ -12,7 +12,12 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
-
+/**
+ * Entity class that contains mail related information (to,from,subject,content)
+ *
+ * @author nagpalh
+ *
+ */
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id", scope = Mail.class)
 public class Mail {
 
@@ -82,6 +87,10 @@ public class Mail {
 		this.templateVariableMap = templateVariableMap;
 	}
 
+	
+	/**
+	 * Manual toString() function For object conversion.
+	 */
 	@Override
 	public String toString() {
 		JSONObject jsonInfo = new JSONObject();
@@ -90,12 +99,6 @@ public class Mail {
 			jsonInfo.put("to", this.to);
 			jsonInfo.put("subject", this.subject);
 			jsonInfo.put("content", this.content);
-			/*
-			 * JSONArray templateVariableArray = new JSONArray();
-			 * templateVariableArray.put(templateVariableMap);
-			 * 
-			 * jsonInfo.put("templateVariables", templateVariableArray);
-			 */
 			StringWriter out = new StringWriter();
 			JSONValue.writeJSONString(templateVariableMap, out);
 			String jsonText = out.toString();
