@@ -11,23 +11,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecms.constants.ApplicationConstants;
 import com.ecms.entity.Mail;
-import com.ecms.service.EventPublisherService;
+import com.ecms.service.Producer;
 
 /**
  * Rest Controller for incoming request for sending mail
  * 
  * @author nagpalh
- *
+ * Need to be deleted.
  */
 @RestController
 @RequestMapping("/")
-public class EventPublisherController {
+public class EventPublisher {
 
-	private static Logger log = LoggerFactory.getLogger(EventPublisherController.class);
+	private static Logger log = LoggerFactory.getLogger(EventPublisher.class);
 
+	/*
+	 * @Autowired EventPublisherService eventPublisherService;
+	 */
 	@Autowired
-	EventPublisherService eventPublisherService;
+	Producer producer;
 
 	/**
 	 * This Function route the message to service class welcome() function
@@ -37,10 +41,11 @@ public class EventPublisherController {
 	 * @throws IOException
 	 * @throws TimeoutException
 	 */
-	@RequestMapping(value = "/rabbitMq", consumes = "application/json")
+	@RequestMapping(value = "/message", consumes = "application/json")
 	public ResponseEntity<?> welcome(@RequestBody Mail mail) throws IOException, TimeoutException {
-		log.info("In Event Publisher Controller, with message : " + mail);
-		String output = eventPublisherService.publishEvent(mail);
+		log.info(ApplicationConstants.Enter_Controller + mail);
+		String output = producer.produce(mail);
+		log.info(output);
 		return ResponseEntity.ok(output);
 	}
 

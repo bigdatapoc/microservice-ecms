@@ -9,11 +9,14 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ecms.constants.ApplicationConstants;
 import com.ecms.entity.Mail;
 import com.ecms.service.NotificationService;
 
 /**
- * This Class Acts as Consumer (Or Listener). and will Listen to The messages on queue.
+ * This Class Acts as Consumer (Or Listener). and will Listen to The messages on
+ * queue.
+ * 
  * @author nagpalh
  */
 @Component
@@ -27,13 +30,14 @@ public class Consumer {
 
 	/**
 	 * This Function Listens to the messages on given queues.
+	 * 
 	 * @param mail
 	 */
 	@RabbitListener(queues = "${mail.rabbitmq.queue}", containerFactory = "mailFactory")
 	public void recievedMessage(Mail mail) {
 
-		log.info("In Consumer, Listener Recieved Message: " + mail);
+		log.info(ApplicationConstants.Enter_Consumer + mail);
 		CompletableFuture<String> output = notificationService.sendMail(mail);
-		log.info("Mail passed to asynch thread");
+		log.info(ApplicationConstants.Call_After_Asynch + output);
 	}
 }

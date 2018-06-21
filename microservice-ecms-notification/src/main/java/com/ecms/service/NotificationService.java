@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
+import com.ecms.constants.ApplicationConstants;
 import com.ecms.entity.Mail;
 
 /**
@@ -33,7 +34,8 @@ public class NotificationService {
 	private JavaMailSender javamailSender;
 
 	/**
-	 * This object is used for processing template in "templates" folder on class path
+	 * This object is used for processing template in "templates" folder on class
+	 * path
 	 */
 	@Autowired
 	private SpringTemplateEngine templateEngine;
@@ -51,8 +53,8 @@ public class NotificationService {
 	@Async
 	public CompletableFuture<String> sendMail(Mail mail) {
 
-		log.info("In Service.class sendMail Method");
-		String response = "Mail Sending Failed";
+		log.info(ApplicationConstants.Enter_Notification_Service);
+		String response = ApplicationConstants.Failure_Mail_Response;
 		MimeMessage message = javamailSender.createMimeMessage();
 		MimeMessageHelper helper = null;
 		try {
@@ -67,9 +69,10 @@ public class NotificationService {
 			helper.setSubject(mail.getSubject());
 			helper.setFrom(mail.getFrom());
 			javamailSender.send(message);
-			response = "Mail sent to : " + mail.getTo();
+			response = ApplicationConstants.Success_Mail_Response;
+			log.info("Successfull: "+response);
 		} catch (MessagingException e) {
-			response = "There Seems to be an error in Sending Mail, Please Check";
+			response = ApplicationConstants.Exception_Mail_Response;
 			log.info("Error Message: " + e.getMessage() + "\nException Class: " + e.getClass()
 					+ "\nCause of Exception: " + e.getCause() + "\nStack Trace oF Exception: " + e.getStackTrace());
 		}

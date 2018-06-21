@@ -12,7 +12,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * This is Entity Class (Or Simply a POJO) Which has all the Data Members for sending notifications to users. 
+ * This is Entity Class (Or Simply a POJO) Which has all the Data Members for
+ * sending notifications to users.
+ * 
  * @author nagpalh
  */
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id", scope = Mail.class)
@@ -87,12 +89,13 @@ public class Mail {
 	/**
 	 * This Function is manual Implemented For Converting the object in JSON Format
 	 * 
-	 * @throws JSONException 
+	 * @throws JSONException
 	 * 
-	 * @return String	This function return the JSON format of the object of Mail.class
+	 * @return String This function return the JSON format of the object of
+	 *         Mail.class
 	 */
 	@Override
-	public String toString()throws JSONException {
+	public String toString() throws JSONException {
 		JSONObject jsonInfo = new JSONObject();
 
 		jsonInfo.put("from", this.from);

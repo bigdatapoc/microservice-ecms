@@ -1,4 +1,4 @@
-package com.ecms.producer;
+package com.ecms.service;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -10,17 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.ecms.MicroserviceEcmsRabbitMqApplication;
+import com.ecms.constants.ApplicationConstants;
 import com.ecms.entity.Mail;
+
 /**
  * This class will act as producer and will send notification on RabbitMQ Queue
+ * 
  * @author nagpalh
  *
  */
 @Component
 public class Producer {
 
-	private static Logger log = LoggerFactory.getLogger(MicroserviceEcmsRabbitMqApplication.class);
+	private static Logger log = LoggerFactory.getLogger(Producer.class);
 
 	@Autowired
 	private AmqpTemplate amqpTemplate;
@@ -32,16 +34,17 @@ public class Producer {
 	private String routingkey;
 
 	/**
-	 * 	Just for sending mail object to specific "exchange" with specified "routing key".
-	 * 		Now, that routing key is used by exchanges for routing message to the specific "Queue". 
-	 * 			
+	 * Just for sending mail object to specific "exchange" with specified "routing
+	 * key". Now, that routing key is used by exchanges for routing message to the
+	 * specific "Queue".
+	 * 
 	 * @param mail
 	 * @throws IOException
 	 * @throws TimeoutException
 	 */
 	public String produce(Mail mail) throws IOException, TimeoutException {
-		log.info("In Producer(Ready For Producing Data to RabbitMq)");
+		log.info(ApplicationConstants.Enter_Producer);
 		amqpTemplate.convertAndSend(exchange, routingkey, mail);
-		return "Data Produces on RabbitMq Successfully";
+		return ApplicationConstants.Producer_Result;
 	}
 }
