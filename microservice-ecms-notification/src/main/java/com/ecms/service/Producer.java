@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.ecms.constants.ApplicationConstants;
-import com.ecms.entity.Mail;
+import com.ecms.entity.Event;
 
 /**
  * This class will act as producer and will send notification on RabbitMQ Queue
@@ -38,13 +38,13 @@ public class Producer {
 	 * key". Now, that routing key is used by exchanges for routing message to the
 	 * specific "Queue".
 	 * 
-	 * @param mail
+	 * @param Event
 	 * @throws IOException
 	 * @throws TimeoutException
 	 */
-	public String produce(Mail mail) throws IOException, TimeoutException {
+	public String produce(Event event) throws IOException, TimeoutException {
 		log.info(ApplicationConstants.Enter_Producer);
-		amqpTemplate.convertAndSend(exchange, routingkey, mail);
+		amqpTemplate.convertAndSend(exchange, routingkey, event);
 		return ApplicationConstants.Producer_Result;
 	}
 }

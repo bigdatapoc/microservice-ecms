@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecms.constants.ApplicationConstants;
-import com.ecms.entity.Mail;
+import com.ecms.entity.Event;
 import com.ecms.service.Producer;
 
 /**
@@ -34,19 +34,18 @@ public class EventPublisher {
 	Producer producer;
 
 	/**
-	 * This Function route the message to service class welcome() function
+	 * This Function route the message to Business Logic
 	 * 
-	 * @param mail
+	 * @param Event
 	 * @return String
 	 * @throws IOException
 	 * @throws TimeoutException
 	 */
 	@RequestMapping(value = "/message", consumes = "application/json")
-	public ResponseEntity<?> welcome(@RequestBody Mail mail) throws IOException, TimeoutException {
-		log.info(ApplicationConstants.Enter_Controller + mail);
-		String output = producer.produce(mail);
+	public ResponseEntity<?> publish(@RequestBody Event event) throws IOException, TimeoutException {
+		log.info(ApplicationConstants.Enter_Controller + event);
+		String output = producer.produce(event);
 		log.info(output);
 		return ResponseEntity.ok(output);
 	}
-
 }

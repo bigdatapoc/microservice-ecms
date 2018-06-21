@@ -17,7 +17,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.ecms.constants.ApplicationConstants;
-import com.ecms.entity.Mail;
+import com.ecms.entity.Event;
 
 /**
  * This is Service Class For Writing Business Logic.
@@ -45,13 +45,15 @@ public class NotificationService {
 	/**
 	 * Asynchronous function for Sending mail using thymeleaf engines
 	 * 
-	 * @param Mail
+	 * @param Event
 	 * 
 	 * @return CompletableFuture<String> It is nothing but Just a String that we
 	 *         will receive from this function in future, Simply a JAVA-8 Feature.
 	 */
+
+	
 	@Async
-	public CompletableFuture<String> sendMail(Mail mail) {
+	public CompletableFuture<String> sendMail(Event event) {
 
 		log.info(ApplicationConstants.Enter_Notification_Service);
 		String response = ApplicationConstants.Failure_Mail_Response;
@@ -62,15 +64,21 @@ public class NotificationService {
 					StandardCharsets.UTF_8.name());
 			// helper.addAttachment("logo.jpg", new ClassPathResource("download.jpg"));
 			Context context = new Context();
-			context.setVariables(mail.getTemplateVariableMap());
+			
+			if(event.getEvent().equals("abc")) {
+			
+			//context.setVariables(mail.getTemplateVariableMap());
 			String html = templateEngine.process("email-template", context);
-			helper.setTo(mail.getTo());
+			helper.setTo("rohankandalkar1717@gmail.com");
 			helper.setText(html, true);
-			helper.setSubject(mail.getSubject());
-			helper.setFrom(mail.getFrom());
+			helper.setSubject("Some Changes Occur so testing these if it work");
+			
+			helper.setFrom("himanshunagpal7777@gmail.com");
+			}
 			javamailSender.send(message);
 			response = ApplicationConstants.Success_Mail_Response;
 			log.info("Successfull: "+response);
+			
 		} catch (MessagingException e) {
 			response = ApplicationConstants.Exception_Mail_Response;
 			log.info("Error Message: " + e.getMessage() + "\nException Class: " + e.getClass()

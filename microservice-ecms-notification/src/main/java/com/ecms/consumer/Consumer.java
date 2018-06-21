@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ecms.constants.ApplicationConstants;
-import com.ecms.entity.Mail;
+import com.ecms.entity.Event;
 import com.ecms.service.NotificationService;
 
 /**
@@ -31,13 +31,14 @@ public class Consumer {
 	/**
 	 * This Function Listens to the messages on given queues.
 	 * 
-	 * @param mail
+	 * @param Event
 	 */
 	@RabbitListener(queues = "${mail.rabbitmq.queue}", containerFactory = "mailFactory")
-	public void recievedMessage(Mail mail) {
+	public void recievedMessage2(Event event) {
 
-		log.info(ApplicationConstants.Enter_Consumer + mail);
-		CompletableFuture<String> output = notificationService.sendMail(mail);
+		log.info(ApplicationConstants.Enter_Consumer + event);
+		CompletableFuture<String> output = notificationService.sendMail(event);
 		log.info(ApplicationConstants.Call_After_Asynch + output);
 	}
+
 }
