@@ -17,11 +17,11 @@
 	<description>microservice-ecms</description>
 
 	<modules>
-		<module>microservice-ecms-transcoding</module>
 		<module>microservice-ecms-eureka-server</module>
 		<module>microservice-ecms-gateway-service</module>
 		<module>microservice-ecms-notification</module>
-		<module>microservice-ecms-rabbitMQ</module>
+		<module>microservice-ecms-filesystem-service</module>
+		<module>microservice-ecms-transcoding</module>
 	</modules>
 
 	<properties>

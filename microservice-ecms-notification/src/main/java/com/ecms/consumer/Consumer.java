@@ -9,9 +9,9 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ecms.constants.ApplicationConstants;
+import com.ecms.constants.MessageConstants;
 import com.ecms.entity.Event;
-import com.ecms.service.NotificationService;
+import com.ecms.serviceImplementation.NotificationService;
 
 /**
  * This Class Acts as Consumer (Or Listener). and will Listen to The messages on
@@ -36,9 +36,9 @@ public class Consumer {
 	@RabbitListener(queues = "${mail.rabbitmq.queue}", containerFactory = "mailFactory")
 	public void recievedMessage2(Event event) {
 
-		log.info(ApplicationConstants.Enter_Consumer + event);
+		log.info(MessageConstants.Enter_Consumer + event);
 		CompletableFuture<String> output = notificationService.sendMail(event);
-		log.info(ApplicationConstants.Call_After_Asynch + output);
+		log.info(MessageConstants.Call_After_Asynch + output);
 	}
 
 }

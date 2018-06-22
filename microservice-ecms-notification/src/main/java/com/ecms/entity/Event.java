@@ -1,33 +1,55 @@
 package com.ecms.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id", scope = Event.class)
+@Table
+@Entity
 public class Event {
-	private String event;
+	@Id
+	private Integer event_id;
+	private String event_name;
+	
 	
 	public Event() {
 		super();
 	}
 
-	public Event(String event) {
+
+	public Event(Integer event_id, String event_name) {
 		super();
-		this.event = event;
+		this.event_id = event_id;
+		this.event_name = event_name;
 	}
 
-	public String getEvent() {
-		return event;
+
+	public Integer getEvent_id() {
+		return event_id;
 	}
 
-	public void setEvent(String event) {
-		this.event = event;
+
+	public void setEvent_id(Integer event_id) {
+		this.event_id = event_id;
 	}
+
+
+	public String getEvent_name() {
+		return event_name;
+	}
+
+
+	public void setEvent_name(String event_name) {
+		this.event_name = event_name;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Event [event=" + event + "]";
+		return "Event [event_id=" + event_id + ", event_name=" + event_name + "]";
 	}
+	
+	
 
 	
 

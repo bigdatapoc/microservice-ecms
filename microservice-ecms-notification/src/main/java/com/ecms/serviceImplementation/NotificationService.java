@@ -1,6 +1,7 @@
-package com.ecms.service;
+package com.ecms.serviceImplementation;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import javax.mail.MessagingException;
@@ -16,8 +17,12 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
-import com.ecms.constants.ApplicationConstants;
+import com.ecms.constants.MessageConstants;
+import com.ecms.dao.NotificationDao;
 import com.ecms.entity.Event;
+import com.ecms.entity.EventTemplate;
+import com.ecms.entity.User;
+import com.ecms.service.Notification;
 
 /**
  * This is Service Class For Writing Business Logic.
@@ -25,7 +30,7 @@ import com.ecms.entity.Event;
  * @author nagpalh
  */
 @Service
-public class NotificationService {
+public class NotificationService implements Notification{
 
 	/**
 	 * Object Used to send mail
@@ -40,6 +45,10 @@ public class NotificationService {
 	@Autowired
 	private SpringTemplateEngine templateEngine;
 
+	@Autowired
+	private NotificationDao notificationDao;
+	
+	
 	private static Logger log = LoggerFactory.getLogger(NotificationService.class);
 
 	/**
@@ -55,8 +64,8 @@ public class NotificationService {
 	@Async
 	public CompletableFuture<String> sendMail(Event event) {
 
-		log.info(ApplicationConstants.Enter_Notification_Service);
-		String response = ApplicationConstants.Failure_Mail_Response;
+		log.info(MessageConstants.Enter_Notification_Service);
+		String response = MessageConstants.Failure_Mail_Response;
 		MimeMessage message = javamailSender.createMimeMessage();
 		MimeMessageHelper helper = null;
 		try {
@@ -64,23 +73,25 @@ public class NotificationService {
 					StandardCharsets.UTF_8.name());
 			// helper.addAttachment("logo.jpg", new ClassPathResource("download.jpg"));
 			Context context = new Context();
-			
-			if(event.getEvent().equals("abc")) {
-			
+			log.info("1");
+			List<User> mailUser=notificationDao.getUsers(event);
+			EventTemplate eventTemplate=notificationDao.getEventTemplate(event);
+			log.info("2");
 			//context.setVariables(mail.getTemplateVariableMap());
-			String html = templateEngine.process("email-template", context);
-			helper.setTo("rohankandalkar1717@gmail.com");
-			helper.setText(html, true);
-			helper.setSubject("Some Changes Occur so testing these if it work");
 			
-			helper.setFrom("himanshunagpal7777@gmail.com");
-			}
+			String html = templateEngine.process(eventTemplate.getTemplateContent(), context);
+			helper.setTo(mailUser.iterator().next().getEmail());
+			helper.setText(html, true);
+			helper.setSubject(eventTemplate.getSubject());
+			
+			helper.setFrom("${spring.mail.username}");
+			log.info("verifying");
 			javamailSender.send(message);
-			response = ApplicationConstants.Success_Mail_Response;
+			response = MessageConstants.Success_Mail_Response;
 			log.info("Successfull: "+response);
 			
 		} catch (MessagingException e) {
-			response = ApplicationConstants.Exception_Mail_Response;
+			response = MessageConstants.Exception_Mail_Response;
 			log.info("Error Message: " + e.getMessage() + "\nException Class: " + e.getClass()
 					+ "\nCause of Exception: " + e.getCause() + "\nStack Trace oF Exception: " + e.getStackTrace());
 		}

@@ -1,0 +1,24 @@
+{
+	"name": "Test Repository",
+	"jndiName": "jcr/Test Repository",
+	"monitoring": {
+		"enabled": true
+	},
+	"workspaces": {
+		"default": "ecmsWorkspace",
+		"predefined": [
+			"otherWorkspace"
+		],
+		"allowCreation": true
+	},
+	"storage": {
+		"persistence": {
+			"type": "file",
+			"path": "target/test_repository"
+		},
+		"binaryStorage": {
+			"type": "file",
+			"directory": "target/test_repository/binaries"
+		}
+	}
+}

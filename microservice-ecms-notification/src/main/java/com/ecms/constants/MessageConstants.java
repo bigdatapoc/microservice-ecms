@@ -1,6 +1,6 @@
 package com.ecms.constants;
 
-public class ApplicationConstants {
+public class MessageConstants {
 	public static final String Enter_Controller = "In Event Publisher Controller, with message : ";
 	public static final String Enter_Producer = "In Producer(Ready For Producing Data to RabbitMq)";
 	public static final String Producer_Result = "Data Produces on RabbitMq Successfully";

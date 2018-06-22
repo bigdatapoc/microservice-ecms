@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+
+	<parent>
+		<groupId>com.ecms</groupId>
+
+		<artifactId>microservice-ecms</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+
+	<artifactId>microservice-ecms-filesystem-service</artifactId>
+	<modelVersion>4.0.0</modelVersion>
+	<name>microservice-ecms-filesystem-service</name>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+
+		<io.springfox.springfox-swagger2>2.3.1</io.springfox.springfox-swagger2>
+		<io.springfox.springfox-swagger-ui>2.3.1</io.springfox.springfox-swagger-ui>
+
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Thymeleaf dependency -->
+		<dependency>
+
+			<groupId>org.springframework.boot</groupId>
+
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.modeshape.bom/modeshape-bom-embedded -->
+		<dependency>
+
+			<groupId>org.modeshape.bom</groupId>
+			<artifactId>modeshape-bom-embedded</artifactId>
+
+			<version>5.4.1.Final</version>
+
+			<type>pom</type>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.modeshape/modeshape-jcr -->
+		<dependency>
+			<groupId>org.modeshape</groupId>
+
+			<artifactId>modeshape-jcr</artifactId>
+			<version>5.4.1.Final</version>
+
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.modeshape/modeshape-jcr-api -->
+		<dependency>
+			<groupId>org.modeshape</groupId>
+			<artifactId>modeshape-jcr-api</artifactId>
+			<version>5.4.1.Final</version>
+		</dependency>
+		<!-- Include swagger for API description -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${io.springfox.springfox-swagger2}</version>
+		</dependency>
+		<!-- Include swagger for API description UI -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+
+			<version>${io.springfox.springfox-swagger-ui}</version>
+
+		</dependency>
+
+
+		<!-- RabbitMq -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+
+				<groupId>org.springframework.boot</groupId>
+
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+
+</project>

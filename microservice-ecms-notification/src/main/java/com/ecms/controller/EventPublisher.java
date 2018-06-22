@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecms.constants.ApplicationConstants;
+import com.ecms.constants.MessageConstants;
 import com.ecms.entity.Event;
-import com.ecms.service.Producer;
+import com.ecms.producer.Producer;
 
 /**
  * Rest Controller for incoming request for sending mail
@@ -43,7 +43,7 @@ public class EventPublisher {
 	 */
 	@RequestMapping(value = "/message", consumes = "application/json")
 	public ResponseEntity<?> publish(@RequestBody Event event) throws IOException, TimeoutException {
-		log.info(ApplicationConstants.Enter_Controller + event);
+		log.info(MessageConstants.Enter_Controller + event);
 		String output = producer.produce(event);
 		log.info(output);
 		return ResponseEntity.ok(output);
