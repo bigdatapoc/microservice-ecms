@@ -18,32 +18,36 @@ import org.thymeleaf.templatemode.StandardTemplateModeHandlers;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.ecms")
 @Configuration
-public class ThymeleafConfig {
+public class ThymeleafConfig
+{
 
-	/**
-	 * This Function Create Object that will Process Templates(or HTML Pages).
-	 * 
-	 * @return SpringTemplateEngine
-	 */
-	@Bean(name = "templateEngine")
-	public SpringTemplateEngine springTemplateEngine() {
-		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.addTemplateResolver(htmlTemplateResolver());
-		return templateEngine;
-	}
+    /**
+     * This Function Create Object that will Process Templates(or HTML Pages).
+     * 
+     * @return SpringTemplateEngine
+     */
+    @Bean(name = "templateEngine")
+    public SpringTemplateEngine springTemplateEngine()
+    {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.addTemplateResolver(htmlTemplateResolver());
+        return templateEngine;
+    }
 
-	/**
-	 * This Function is used in creating SpringTemplateEngine Object.
-	 * 
-	 * @return SpringResourceTemplateResolver
-	 */
-	@Bean
-	public SpringResourceTemplateResolver htmlTemplateResolver() {
-		SpringResourceTemplateResolver emailTemplateResolver = new SpringResourceTemplateResolver();
-		emailTemplateResolver.setPrefix("classpath:/templates/");
-		emailTemplateResolver.setSuffix(".html");
-		emailTemplateResolver.setTemplateMode(StandardTemplateModeHandlers.HTML5.getTemplateModeName());
-		emailTemplateResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
-		return emailTemplateResolver;
-	}
+
+    /**
+     * This Function is used in creating SpringTemplateEngine Object.
+     * 
+     * @return SpringResourceTemplateResolver
+     */
+    @Bean
+    public SpringResourceTemplateResolver htmlTemplateResolver()
+    {
+        SpringResourceTemplateResolver emailTemplateResolver = new SpringResourceTemplateResolver();
+        emailTemplateResolver.setPrefix("classpath:/templates/");
+        emailTemplateResolver.setSuffix(".html");
+        emailTemplateResolver.setTemplateMode(StandardTemplateModeHandlers.HTML5.getTemplateModeName());
+        emailTemplateResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        return emailTemplateResolver;
+    }
 }

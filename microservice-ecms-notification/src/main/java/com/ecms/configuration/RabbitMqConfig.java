@@ -23,87 +23,101 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-public class RabbitMqConfig {
+public class RabbitMqConfig
+{
 
-	@Value("${mail.rabbitmq.queue}")
-	String queueName;
+    @Value("${mail.rabbitmq.queue}")
+    String queueName;
 
-	@Value("${mail.rabbitmq.exchange}")
-	String exchange;
+    @Value("${mail.rabbitmq.exchange}")
+    String exchange;
 
-	@Value("${mail.rabbitmq.routingkey}")
-	private String routingkey;
+    @Value("${mail.rabbitmq.routingkey}")
+    private String routingkey;
 
-	/**
-	 * For Creating RabbitMq Queue
-	 * 
-	 * @return Queue
-	 */
-	@Bean
-	Queue queue() {
-		return new Queue(queueName, false);
-	}
 
-	/**
-	 * Data Exchanges on which data is produced
-	 * 
-	 * @return DirectExchange
-	 */
-	@Bean
-	DirectExchange exchange() {
-		return new DirectExchange(exchange);
-	}
+    /**
+     * For Creating RabbitMq Queue
+     * 
+     * @return Queue
+     */
+    @Bean
+    Queue queue()
+    {
+        return new Queue(queueName, false);
+    }
 
-	/**
-	 * This function bind the "Exchanges" with the "Queues" based on routing key
-	 * used.
-	 * 
-	 * @param queue
-	 * @param exchange
-	 * @return Binding
-	 */
-	@Bean
-	Binding binding(Queue queue, DirectExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(routingkey);
-	}
 
-	/**
-	 * function is used to convert Messages into JSON format
-	 * 
-	 * @return MessageConverter
-	 */
-	@Bean
-	public MessageConverter jsonMessageConverter() {
-		return new Jackson2JsonMessageConverter();
-	}
+    /**
+     * Data Exchanges on which data is produced
+     * 
+     * @return DirectExchange
+     */
+    @Bean
+    DirectExchange exchange()
+    {
+        return new DirectExchange(exchange);
+    }
 
-	/**
-	 * creating AmpqTemplate object for producing message on Queue (through
-	 * "RabbitMqExchanges")
-	 * 
-	 * @param connectionFactory
-	 * @return AmqpTemplate
-	 */
-	public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-		final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-		rabbitTemplate.setMessageConverter(jsonMessageConverter());
-		return rabbitTemplate;
-	}
 
-	/**
-	 * Work At the time of Queue Listening
-	 * 
-	 * @param connectionFactory
-	 * @param configurer
-	 * @return SimpleRabbitListenerContainerFactory
-	 */
-	@Bean
-	public SimpleRabbitListenerContainerFactory mailFactory(ConnectionFactory connectionFactory,
-			SimpleRabbitListenerContainerFactoryConfigurer configurer) {
-		SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-		configurer.configure(factory, connectionFactory);
-		factory.setMessageConverter(jsonMessageConverter());
-		return factory;
-	}
+    /**
+     * This function bind the "Exchanges" with the "Queues" based on routing key
+     * used.
+     * 
+     * @param queue
+     * @param exchange
+     * @return Binding
+     */
+    @Bean
+    Binding binding(Queue queue, DirectExchange exchange)
+    {
+        return BindingBuilder.bind(queue).to(exchange).with(routingkey);
+    }
+
+
+    /**
+     * function is used to convert Messages into JSON format
+     * 
+     * @return MessageConverter
+     */
+    @Bean
+    public MessageConverter jsonMessageConverter()
+    {
+        return new Jackson2JsonMessageConverter();
+    }
+
+
+    /**
+     * creating AmpqTemplate object for producing message on Queue (through
+     * "RabbitMqExchanges")
+     * 
+     * @param connectionFactory
+     * @return AmqpTemplate
+     */
+    public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory)
+    {
+        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(jsonMessageConverter());
+        return rabbitTemplate;
+    }
+
+
+    /**
+     * Work At the time of Queue Listening
+     * 
+     * @param connectionFactory
+     * @param configurer
+     * @return SimpleRabbitListenerContainerFactory
+     */
+    @Bean
+    public SimpleRabbitListenerContainerFactory mailFactory(
+        ConnectionFactory connectionFactory,
+        SimpleRabbitListenerContainerFactoryConfigurer configurer)
+    {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        configurer.configure(factory, connectionFactory);
+        factory.setMessageConverter(jsonMessageConverter());
+        return factory;
+    }
 
 }
