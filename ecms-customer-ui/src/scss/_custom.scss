@@ -1,0 +1,15 @@
+// Here you can add other styles
+.sidebar, .sidebar .nav-link.active .nav-icon, .sidebar .nav-link .nav-icon, .sidebar .sidebar-minimizer{
+    color: #fff;
+}
+.sidebar .nav-link.active {
+    background: #20a8d8;
+}
+
+.box-text{
+    color: #5c6873; 
+}
+
+.box-text a{
+    cursor: pointer;
+}
