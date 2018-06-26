@@ -1,12 +1,22 @@
 package com.ecms.service;
 
-import java.util.concurrent.CompletableFuture;
+import javax.mail.MessagingException;
 
 import com.ecms.model.Event;
 
 
 public interface NotificationService
 {
-    CompletableFuture<String> sendMail(Event event);
+   String sendMail(Event event) throws MessagingException;
+    
+//    void findEvent();
+//    
+//    void findTemplate();
+//    
+//    void findUsers();
+//    
+//    void prepareMessage();
+//    
+//    void sendMessage();
 
 }
