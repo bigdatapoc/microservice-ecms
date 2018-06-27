@@ -1,6 +1,7 @@
 package com.ecms.controller;
 
 import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,48 +29,37 @@ import com.ecms.service.car.CarService;
  */
 @RestController
 @RequestMapping("v1/cars")
-public class CarController
-{
+public class CarController {
 
-    private final CarService carService;
+	private final CarService carService;
 
+	@Autowired
+	public CarController(final CarService carService) {
+		this.carService = carService;
+	}
 
-    @Autowired
-    public CarController(final CarService carService)
-    {
-        this.carService = carService;
-    }
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public CarDTO createCar(@Valid @RequestBody CarDTO carDTO) throws ConstraintsViolationException {
+		CarDO carDO = CarMapper.makeCarDO(carDTO);
+		return CarMapper.makeCarDTO(carService.create(carDO));
+	}
 
+	@GetMapping
+	public List<CarDTO> findCars() throws ConstraintsViolationException, EntityNotFoundException {
+		return CarMapper.makeCarDTOList(carService.findAll());
+	}
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public CarDTO createCar(@Valid @RequestBody CarDTO carDTO) throws ConstraintsViolationException
-    {
-        CarDO carDO = CarMapper.makeCarDO(carDTO);
-        return CarMapper.makeCarDTO(carService.create(carDO));
-    }
+	@PutMapping("/{carId}")
+	public CarDTO updateCar(@PathVariable(value = "carId") Long carId, @Valid @RequestBody CarDTO carDTO)
+			throws ConstraintsViolationException, EntityNotFoundException {
+		CarDO carDO = CarMapper.makeCarDO(carDTO);
+		return CarMapper.makeCarDTO(carService.update(carId, carDO));
+	}
 
-
-    @GetMapping
-    public List<CarDTO> findCars() throws ConstraintsViolationException, EntityNotFoundException
-    {
-        return CarMapper.makeCarDTOList(carService.findAll());
-    }
-
-
-    @PutMapping("/{carId}")
-    public CarDTO updateCar(@PathVariable(value = "carId") Long carId, @Valid @RequestBody CarDTO carDTO)
-        throws ConstraintsViolationException, EntityNotFoundException
-    {
-        CarDO carDO = CarMapper.makeCarDO(carDTO);
-        return CarMapper.makeCarDTO(carService.update(carId, carDO));
-    }
-
-
-    @DeleteMapping("/{carId}")
-    public void deleteCar(@Valid @PathVariable long carId) throws EntityNotFoundException
-    {
-        carService.delete(carId);
-    }
+	@DeleteMapping("/{carId}")
+	public void deleteCar(@Valid @PathVariable long carId) throws EntityNotFoundException {
+		carService.delete(carId);
+	}
 
 }

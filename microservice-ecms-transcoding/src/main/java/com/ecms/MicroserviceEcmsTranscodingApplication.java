@@ -1,12 +1,14 @@
 package com.ecms;
 
-import com.ecms.util.LoggingInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.ecms.util.LoggingInterceptor;
+
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -36,9 +38,7 @@ public class MicroserviceEcmsTranscodingApplication extends WebMvcConfigurerAdap
 	}
 
 	private ApiInfo generateApiInfo() {
-		return new ApiInfo("Transcoding Service",
-				"This service is to.",
-				"Version 1.0 - mw", "urn:tos", "transcoding@hcl.com", "Apache 2.0",
-				"http://www.apache.org/licenses/LICENSE-2.0");
+		return new ApiInfo("Transcoding Service", "This service is to.", "Version 1.0 - mw", "urn:tos",
+				"transcoding@hcl.com", "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
 	}
 }

@@ -4,5 +4,5 @@ import com.ecms.model.Event;
 
 public interface NotificationStrategy
 {
-   public String sendMessage(Event event);
+    public String sendMessage(Event event);
 }

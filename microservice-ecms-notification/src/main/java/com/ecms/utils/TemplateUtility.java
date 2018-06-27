@@ -25,20 +25,25 @@ public class TemplateUtility
         return fileNameWithOutExt;
     }
 
-    public Template getTemplate(Event event) {
+
+    public Template getTemplate(Event event)
+    {
         return templateDao.getEventTemplate(event.getEventId());
     }
-    
+
+
     public String htmlThymleafTemplate(Event event)
     {
         Template template = getTemplate(event);
         String fileNameWithOutExt = removeExtension(template.getTemplateContent());
         Context context = new Context();
         String html = templateEngine.process(fileNameWithOutExt, context);
-
         return html;
     }
-    public String gettemplateSubject(Event event) {
+
+
+    public String gettemplateSubject(Event event)
+    {
         Template template = getTemplate(event);
         return template.getSubject();
     }

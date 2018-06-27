@@ -38,7 +38,7 @@ public class FileSystemServiceImpl implements FileSyetemService {
 
 	@Autowired
 	private Producer producer;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemServiceImpl.class);
 
 	/**
@@ -246,33 +246,31 @@ public class FileSystemServiceImpl implements FileSyetemService {
 		}
 	}
 
-	public void addVersionService(MultipartFile mediaFile) throws LoginException, NoSuchWorkspaceException, RepositoryException, IOException {
-		
+	public void addVersionService(MultipartFile mediaFile)
+			throws LoginException, NoSuchWorkspaceException, RepositoryException, IOException {
+
 		String tempFilename = mediaFile.getOriginalFilename();
 		String mediaFileNodeName = tempFilename.substring(0, tempFilename.indexOf("."));
 		String mediaFileMimeType = mediaFile.getContentType();
-		
+
 		Session session = this.repository.login(FileSystemConstants.ECMS_WORKSPACE);
-		
+
 		Node rootnode = session.getRootNode();
-		Node VideodemoNode = rootnode.addNode("Videodemo","nt:folder");
-		
-		Node mediaFileNode = VideodemoNode.addNode(mediaFileNodeName,"nt:file");
+		Node VideodemoNode = rootnode.addNode("Videodemo", "nt:folder");
+
+		Node mediaFileNode = VideodemoNode.addNode(mediaFileNodeName, "nt:file");
 		Node cotentNode = mediaFileNode.addNode("jcr:content", "nt:resource");
 		InputStream mediaFileStream = new BufferedInputStream(mediaFile.getInputStream());
 
 		// File data stored in repository in Binary form
 		Binary binary = session.getValueFactory().createBinary(mediaFileStream);
 		cotentNode.setProperty("jcr:data", binary);
-		
+
 		// Set additional information of file
 		cotentNode.setProperty("jcr:mimeType", mediaFileMimeType);
 		cotentNode.addMixin("mix:versionable");
 		session.save();
 		session.logout();
-		
-		
-		
-		
+
 	}
 }

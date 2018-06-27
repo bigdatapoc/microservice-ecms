@@ -5,21 +5,23 @@ import javax.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.ecms.model.Event;
 import com.ecms.notification.strategy.NotificationStrategy;
 import com.ecms.service.NotificationService;
-import com.ecms.serviceImpl.NotificationServiceImpl;
 
+@Component
 public class MailStrategy implements NotificationStrategy
 {
     @Autowired
-    NotificationService notificationService; 
+    private NotificationService notificationService;
 
     private static Logger log = LoggerFactory.getLogger(MailStrategy.class);
-    
+
+
     @Override
-    public String sendMessage(Event event) 
+    public String sendMessage(Event event)
     {
         try
         {
