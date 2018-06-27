@@ -31,16 +31,16 @@ export const routes: Routes = [
         loadChildren: './components/dashboard/dashboard.module#DashboardModule'
       },
       {
-        path: 'customers',
-        loadChildren: './components/customers/customers.module#CustomersModule'
+        path: 'contentTypes',
+        loadChildren: './components/contentTypes/contentTypes.module#ContentTypesModule'
+      },
+      {
+        path: 'contentConfig',
+        loadChildren: './components/contentConfig/contentConfig.module#ContentConfigModule'
       },
       {
         path: 'users',
         loadChildren: './components/users/users.module#UsersModule'
-      },
-      {
-        path: 'contentTypes',
-        loadChildren: './components/contentTypes/contentTypes.module#ContentTypesModule'
       }
     ]
   }

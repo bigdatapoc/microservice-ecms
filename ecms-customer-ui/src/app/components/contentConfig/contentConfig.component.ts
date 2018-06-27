@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 
 @Component({
-  templateUrl: 'customers.component.html'
+  templateUrl: 'contentConfig.component.html'
 })
-export class CustomersComponent implements OnInit {
+export class ContentConfigComponent implements OnInit {
 
   ngOnInit(): void {
    

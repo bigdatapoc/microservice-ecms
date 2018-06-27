@@ -1,0 +1,49 @@
+<div class="animated fadeIn">
+    <div class="card">
+        
+        <div class="card-body">
+            <div class="row">   
+                <div class="form-group col-sm-6">
+                    <label for="name">Configuration Title</label>
+                    <input type="text" class="form-control col-sm-8" id="name" placeholder="Enter configuration title">
+                </div>
+               
+            </div>  
+            
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Select Content Type</label>
+                </div>
+            </div>
+            <div class="row">
+                
+                <ul class="list-group form-group col-sm-4  list-box" [dragula]='"first-bag"'>
+                    <li class="list-group-item">Movies Group</li>
+                    <li class="list-group-item">Videos</li>
+                    <li class="list-group-item">Audios</li>
+                    <li class="list-group-item">Dummy</li>
+                    <li class="list-group-item">Test</li>
+                </ul>
+            
+                <div class="centerIcon"><i class="icon-control-forward"></i></div>
+                <ul class="list-group form-group col-sm-4 list-box" [dragula]='"first-bag"'>
+
+                </ul>
+                
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <small><strong>Note: </strong>Drag &amp; Drop content types from left to right column. </small>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="form-group col-sm-10">
+                    <button class="btn btn-primary col-sm-2">Save</button>
+                </div>
+            </div>
+                
+        </div>
+    </div>
+
+</div>

@@ -5,18 +5,18 @@ export const navItems = [
     icon: 'icon-speedometer'
   },
   {
-    name: 'Contents',
-    url: '/customers',
+    name: 'Content Types',
+    url: '/contentTypes',
     icon: 'icon-list'
   },
   {
     name: 'Content Config.',
-    url: '/users',
+    url: '/contentConfig',
     icon: 'icon-list'
   },
   {
     name: 'Content Catalog',
-    url: '/contentTypes',
+    url: '/contentCatalog',
     icon: 'icon-list'
   },
   {

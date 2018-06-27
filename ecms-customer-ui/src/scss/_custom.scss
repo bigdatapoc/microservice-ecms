@@ -3,7 +3,7 @@
     color: #fff;
 }
 .sidebar .nav-link.active {
-    background: #20a8d8;
+    background: #5c6873;
 }
 
 .box-text{
@@ -12,4 +12,42 @@
 
 .box-text a{
     cursor: pointer;
+}
+
+.list-box {
+    border: 1px solid #ccc;
+    padding: 0;
+    margin-left: 15px;
+    min-height: 300px;
+}
+
+.centerIcon i{
+    position: relative;
+    top: 40%;
+    margin-left: 21px;
+    font-size: 34px;
+    color: #ccc;
+}
+
+.gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 0.8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+}
+.gu-hide {
+    display: none !important;
+}
+.gu-unselectable {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+.gu-transit {
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
 }
