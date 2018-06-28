@@ -29,6 +29,59 @@
     color: #ccc;
 }
 
+.advanceSearch {
+    float: right;
+    margin: 6px;
+    cursor: pointer;
+    color: #20a8d8 !important;
+    font-weight: 500;
+}
+
+.close-icon-box a{ font-size: 18px; }
+
+.advanceSearch-box {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s, overflow 0.5s 0.5s;
+}
+
+.advanceSearch-box.active {
+    max-height: 100px;
+    transition: max-height 0.5s, overflow 0.5s 0.5s;
+    opacity: 1;
+}
+
+.catalog .card img {
+    height: 50px; width: 50px;
+}
+
+.catalog .card .card-body {
+    padding: 8px;
+}
+
+.catalog .card:hover {
+    border: 1px solid #20a8d8;
+    -moz-box-shadow:inset 0 0 10px #20a8d8;
+   -webkit-box-shadow: inset 0 0 10px #20a8d8;
+    box-shadow: inset 0 0 10px #20a8d8;
+}
+
+.catalog .card .card-body a.title {
+    color: #20a8d8 !important;
+    cursor: pointer;
+}
+
+.catalog .card .card-body a.delete {
+    margin-top: -10px;
+    font-size: 18px;
+    position: absolute;
+    right: 5px;
+}
+
 .gu-mirror {
     position: fixed !important;
     margin: 0 !important;

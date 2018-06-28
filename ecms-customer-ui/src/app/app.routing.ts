@@ -39,8 +39,16 @@ export const routes: Routes = [
         loadChildren: './components/contentConfig/contentConfig.module#ContentConfigModule'
       },
       {
+        path: 'contentCatalog',
+        loadChildren: './components/contentCatalog/contentCatalog.module#ContentCatalogModule'
+      },
+      {
         path: 'users',
         loadChildren: './components/users/users.module#UsersModule'
+      },
+      {
+        path: 'profile',
+        loadChildren: './components/profile/profile.module#ProfileModule'
       }
     ]
   }

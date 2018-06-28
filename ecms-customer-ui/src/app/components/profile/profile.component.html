@@ -1,0 +1,88 @@
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="card-header">
+            Account Info
+            <a class="pull-right" (click)="formParts.accountIsCollapsed = !formParts.accountIsCollapsed"><i class="fa" [ngClass]="formParts.accountIsCollapsed? 'fa-plus-square': 'fa-minus-square'"></i></a>
+        </div>
+        <div class="card-body" [collapse]="formParts.accountIsCollapsed">
+            <div class="row">
+                
+                <div class="form-group col-sm-6">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control col-sm-8" id="username" placeholder="Enter username">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control  col-sm-8" id="password" placeholder="Enter password">
+                </div>
+                
+                <div class="form-group col-sm-10">
+                    <button class="btn btn-primary col-sm-2">Save</button>
+                </div>
+            </div>           
+                
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            General Info
+            <a class="pull-right" (click)="formParts.generalIsCollapsed = !formParts.generalIsCollapsed"><i class="fa" [ngClass]="formParts.generalIsCollapsed? 'fa-plus-square': 'fa-minus-square'"></i></a>
+        </div>
+        <div class="card-body" [collapse]="formParts.generalIsCollapsed">
+            <div class="row">
+                
+                <div class="form-group col-sm-6">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" class="form-control col-sm-8" id="companyName" placeholder="Enter company name">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="companyEmail">Company Email</label>
+                    <input type="text" class="form-control  col-sm-8" id="companyEmail" placeholder="Enter company email">
+                </div>
+             
+                <div class="form-group col-sm-6">
+                    <label for="contact">Contact No.</label>
+                    <input type="text" class="form-control col-sm-8" id="contact" placeholder="Enter contact no.">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="companyWebsite">Website URL</label>
+                    <input type="text" class="form-control  col-sm-8" id="companyWebsite" placeholder="Enter company website URL">
+                </div>
+                <div class="form-group col-sm-10">
+                    <label for="address">Address</label>
+                    <textarea rows="3" class="form-control" id="address" placeholder="Enter company address"></textarea>
+                </div>
+                
+                <div class="form-group col-sm-10">
+                    <button class="btn btn-primary col-sm-2">Save</button>
+                </div>
+            </div>           
+              
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Company Portal Info
+            <a class="pull-right" (click)="formParts.portalIsCollapsed = !formParts.portalIsCollapsed"><i class="fa" [ngClass]="formParts.portalIsCollapsed? 'fa-plus-square': 'fa-minus-square'"></i></a>
+        </div>
+        <div class="card-body" [collapse]="formParts.portalIsCollapsed">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="logo">Company Logo</label>
+                    <input type="file" class="form-control  col-sm-8" id="logo" placeholder="Upload company logo">
+                </div>
+                <div class="form-group col-sm-10">
+                    <label for="about">Description</label>
+                    <textarea rows="3" class="form-control" id="about" placeholder="Enter company description"></textarea>
+                </div>
+               
+                
+                <div class="form-group col-sm-10">
+                    <button class="btn btn-primary col-sm-2">Save</button>
+                </div>
+            </div>           
+                
+        </div>
+    </div>
+</div>
