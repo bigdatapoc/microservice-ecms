@@ -1,0 +1,88 @@
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="card-body" >
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-md-6 col-form-label">Select Storage Configuration:</label>
+                    <div class="col-md-12 col-form-label">
+                        <div class="form-check form-check-inline mr-5">
+                            <input class="form-check-input" type="radio" id="inline-checkbox1" value="local" name="storageType" [(ngModel)]="configType">
+                            <label class="form-check-label" for="inline-checkbox1">Local Server</label>
+                            </div>
+                        <div class="form-check form-check-inline mr-5">
+                            <input class="form-check-input" type="radio" id="inline-checkbox2" value="remote" name="storageType" [(ngModel)]="configType">
+                            <label class="form-check-label" for="inline-checkbox2">Remote Server</label>
+                        </div>
+                        <div class="form-check form-check-inline mr-5">
+                            <input class="form-check-input" type="radio" id="inline-checkbox3" value="cloud" name="storageType" [(ngModel)]="configType">
+                            <label class="form-check-label" for="inline-checkbox3">Cloud Storage</label>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <br/> 
+            <div class="row" *ngIf="configType == 'remote'">
+                <div class="form-group">     
+                    <label class="col-md-12 col-form-label">Select Connection Type:</label>    
+                    <div class="col-md-12 col-form-label">
+                        <div class="form-check form-check-inline mr-5">
+                            <input class="form-check-input" type="radio" id="inline-checkbox4" value="ftp" name="connectionType" [(ngModel)]="connectionType">
+                            <label class="form-check-label" for="inline-checkbox4">FTP</label>
+                            </div>
+                        <div class="form-check form-check-inline mr-5">
+                            <input class="form-check-input" type="radio" id="inline-checkbox5" value="ssh" name="connectionType" [(ngModel)]="connectionType">
+                            <label class="form-check-label" for="inline-checkbox5">SSH</label>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+
+            <div class="row" *ngIf="configType == 'remote' && connectionType == 'ftp'">
+                <div class="form-group col-sm-10">
+                    <label for="ip">Server IP</label>
+                    <input type="text" class="form-control col-sm-4" id="ip" placeholder="Enter Server IP">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control col-sm-8" id="username" placeholder="Enter username">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control  col-sm-8" id="password" placeholder="Enter password">
+                </div>
+            </div>
+
+            <div class="row" *ngIf="configType == 'remote' && connectionType == 'ssh'">
+                <div class="form-group col-sm-4">
+                    <label for="ip">Server IP</label>
+                    <input type="text" class="form-control col-sm-8" id="ip" placeholder="Enter Server IP">
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="publicKey">Public Key</label>
+                    <textarea class="form-control" rows="4" placeholder="Enter Public Key"></textarea>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="configType == 'cloud'">
+                <div class="form-group col-sm-10">
+                    <label for="URL">URL</label>
+                    <input type="text" class="form-control col-sm-8" id="url" placeholder="Enter Cloud URL">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control col-sm-8" id="username" placeholder="Enter username">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control  col-sm-8" id="password" placeholder="Enter password">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-10">
+                    <button class="btn btn-primary col-sm-2">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

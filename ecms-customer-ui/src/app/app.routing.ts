@@ -49,6 +49,14 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadChildren: './components/profile/profile.module#ProfileModule'
+      },
+      {
+        path: 'storageConfig',
+        loadChildren: './components/storageConfig/storageConfig.module#StorageConfigModule'
+      },
+      {
+        path: 'notification',
+        loadChildren: './components/notification/notification.module#NotificationModule'
       }
     ]
   }

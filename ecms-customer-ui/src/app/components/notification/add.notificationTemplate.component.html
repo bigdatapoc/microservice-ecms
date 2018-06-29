@@ -1,0 +1,27 @@
+<div class="animated fadeIn">
+    <div class="card">
+        
+        <div class="card-body">
+            <div class="row">   
+                <div class="form-group col-sm-6">
+                    <label for="name">Template Title</label>
+                    <input type="text" class="form-control col-sm-8" id="name" placeholder="Enter Template Title">
+                </div>
+            </div>     
+            <div class="row">   
+                <div class="form-group col-sm-10">
+                    <label for="htmlContent">Template Content</label>           
+                    <div class="editor-div" [froalaEditor]="options"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-10">
+                    <button class="btn btn-primary col-sm-2">Save</button>
+                </div>
+            </div>
+                
+        </div>
+    </div>
+
+</div>
