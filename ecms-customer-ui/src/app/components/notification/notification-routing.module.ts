@@ -3,6 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { NotificationTemplatesComponent } from './notificationTemplates.component';
 import { AddNotificationTemplateComponent } from './add.notificationTemplate.component';
+import { NotificationEventsComponent } from './notificationEvents.component';
+import { AddNotificationEventComponent } from './add.notificationEvent.component';
+import { NotificationRulesComponent } from './notificationRules.component';
+import { AddNotificationRuleComponent } from './add.notificationRule.component';
 
 const routes: Routes = [
   {
@@ -23,6 +27,34 @@ const routes: Routes = [
         component: AddNotificationTemplateComponent,
         data: {
           title: 'Add Template'
+        }
+      },
+      {
+        path: 'events',
+        component: NotificationEventsComponent,
+        data: {
+          title: 'Events'
+        }
+      },
+      {
+        path: 'addEvent',
+        component: AddNotificationEventComponent,
+        data: {
+          title: 'Add Event'
+        }
+      },
+      {
+        path: 'rules',
+        component: NotificationRulesComponent,
+        data: {
+          title: 'Rules'
+        }
+      },
+      {
+        path: 'addRule',
+        component: AddNotificationRuleComponent,
+        data: {
+          title: 'Add Rule'
         }
       }
     ]

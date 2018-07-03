@@ -8,7 +8,7 @@ export class AddNotificationTemplateComponent {
 
   public options: Object = {
     placeholderText: 'Enter template content here.',
-    height: 250
+    height: 200
   }
 
 }

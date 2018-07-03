@@ -9,6 +9,11 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 import { NotificationTemplatesComponent } from './notificationTemplates.component';
 import { AddNotificationTemplateComponent } from './add.notificationTemplate.component';
+import { NotificationEventsComponent } from './notificationEvents.component';
+import { AddNotificationEventComponent } from './add.notificationEvent.component';
+import { NotificationRulesComponent } from './notificationRules.component';
+import { AddNotificationRuleComponent } from './add.notificationRule.component';
+
 import { NotificationRoutingModule } from './notification-routing.module';
 
 @NgModule({
@@ -22,6 +27,13 @@ import { NotificationRoutingModule } from './notification-routing.module';
     ButtonsModule.forRoot(),
     CollapseModule.forRoot()
   ],
-  declarations: [ NotificationTemplatesComponent, AddNotificationTemplateComponent ]
+  declarations: [ 
+                  NotificationTemplatesComponent, 
+                  AddNotificationTemplateComponent,
+                  NotificationEventsComponent,
+                  AddNotificationEventComponent,
+                  NotificationRulesComponent,
+                  AddNotificationRuleComponent
+                ]
 })
 export class NotificationModule { }
