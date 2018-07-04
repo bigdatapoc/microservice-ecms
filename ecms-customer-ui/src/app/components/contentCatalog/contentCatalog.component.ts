@@ -19,73 +19,43 @@ export class ContentCatalogComponent {
   displayType = 'all';
   catalog = [{
     id: 1,
-    title: 'Movies',
-    imgUrl: '../../../assets/img/video-icon.png'
+    title: 'doc 1',
+    imgUrl: '../../../assets/img/pdf-icon.jfif'
   },
   {
     id: 2,
-    title: 'Videos',
-    imgUrl: '../../../assets/img/video-icon.png'
+    title: 'Document',
+    imgUrl: '../../../assets/img/word-icon.png'
   },
   {
     id: 3,
-    title: 'Audio',
-    imgUrl: '../../../assets/img/audio-icon.png'
+    title: 'Sheet_1',
+    imgUrl: '../../../assets/img/excel-icon.png'
   },
   {
     id: 4,
-    title: 'Test',
-    imgUrl: '../../../assets/img/video-icon.png'
+    title: 'files',
+    imgUrl: '../../../assets/img/zip-icon.jfif'
   },
   {
     id: 5,
     title: 'Videos',
-    imgUrl: '../../../assets/img/video-icon.png'
+    imgUrl: '../../../assets/img/video-file-icon.jfif'
   },
   {
     id: 6,
     title: 'Audio',
-    imgUrl: '../../../assets/img/audio-icon.png'
+    imgUrl: '../../../assets/img/audio-file-icon.jfif'
   },
   {
     id: 7,
-    title: 'Videos',
-    imgUrl: '../../../assets/img/video-icon.png'
+    title: 'PPT Doc',
+    imgUrl: '../../../assets/img/ppt-file-icon.jfif'
   },
   {
     id: 8,
-    title: 'Audio',
-    imgUrl: '../../../assets/img/audio-icon.png'
-  },
-  {
-    id: 9,
-    title: 'Audio',
-    imgUrl: '../../../assets/img/audio-icon.png'
-  },
-  {
-    id: 10,
-    title: 'Test',
-    imgUrl: '../../../assets/img/video-icon.png'
-  },
-  {
-    id: 11,
-    title: 'Videos',
-    imgUrl: '../../../assets/img/video-icon.png'
-  },
-  {
-    id: 12,
-    title: 'Audio',
-    imgUrl: '../../../assets/img/audio-icon.png'
-  },
-  {
-    id: 13,
-    title: 'Videos',
-    imgUrl: '../../../assets/img/video-icon.png'
-  },
-  {
-    id: 8,
-    title: 'Audio',
-    imgUrl: '../../../assets/img/audio-icon.png'
+    title: 'Files',
+    imgUrl: '../../../assets/img/other-files.jfif'
   }];
 
 }
