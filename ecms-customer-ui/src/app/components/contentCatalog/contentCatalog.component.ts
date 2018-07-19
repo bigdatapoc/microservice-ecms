@@ -19,43 +19,43 @@ export class ContentCatalogComponent {
   displayType = 'all';
   catalog = [{
     id: 1,
-    title: 'doc 1',
-    imgUrl: '../../../assets/img/pdf-icon.jfif'
+    title: 'Video 1',
+    imgUrl: '../../../assets/img/video-file-icon.jfif'
   },
   {
     id: 2,
-    title: 'Document',
-    imgUrl: '../../../assets/img/word-icon.png'
+    title: 'Video 2',
+    imgUrl: '../../../assets/img/video-file-icon.jfif'
   },
   {
     id: 3,
-    title: 'Sheet_1',
-    imgUrl: '../../../assets/img/excel-icon.png'
+    title: 'Video 3',
+    imgUrl: '../../../assets/img/video-file-icon.jfif'
   },
   {
     id: 4,
-    title: 'files',
-    imgUrl: '../../../assets/img/zip-icon.jfif'
+    title: 'Video 4',
+    imgUrl: '../../../assets/img/video-file-icon.jfif'
   },
   {
     id: 5,
-    title: 'Videos',
+    title: 'Video 5',
     imgUrl: '../../../assets/img/video-file-icon.jfif'
   },
   {
     id: 6,
-    title: 'Audio',
-    imgUrl: '../../../assets/img/audio-file-icon.jfif'
+    title: 'Video 6',
+    imgUrl: '../../../assets/img/video-file-icon.jfif'
   },
   {
     id: 7,
-    title: 'PPT Doc',
-    imgUrl: '../../../assets/img/ppt-file-icon.jfif'
+    title: 'Video 7',
+    imgUrl: '../../../assets/img/video-file-icon.jfif'
   },
   {
     id: 8,
-    title: 'Files',
-    imgUrl: '../../../assets/img/other-files.jfif'
+    title: 'Video 8',
+    imgUrl: '../../../assets/img/video-file-icon.jfif'
   }];
 
 }

@@ -1,0 +1,39 @@
+ul.steps { margin: 0; padding: 0; }
+ul.steps li{ display: inline; }
+ul.steps li.done a{ color: #20a8d8; }
+ul.steps li a { cursor: pointer; }
+
+.input-box {
+    text-align: center;
+    position: relative;
+    margin-bottom: 8%;
+}
+
+.input-box p{ 
+    font-size: 24px;
+    color: #73818f;
+}
+
+button.file-select {
+    background: url('../../../assets/img/upload-icon.png') no-repeat;
+    height: 100px;
+    width: 125px;
+    outline: none;
+    border: none;
+    margin-top: 16%;
+}
+
+.hide-this {
+    height: 0;
+    opacity: 0;
+    left: -1000px;
+}
+
+.meta-data-box p{
+    margin-bottom: 3px;
+}
+
+.progress {
+    height: 2rem;
+    border: 1px solid #8ad4ee;
+}

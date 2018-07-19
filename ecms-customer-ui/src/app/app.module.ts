@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { HttpClientModule } from '@angular/common/http';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -26,11 +28,12 @@ import {
   AppBreadcrumbModule,
   AppHeaderModule,
   AppFooterModule,
-  AppSidebarModule,
+  AppSidebarModule
 } from '@coreui/angular'
 
 // Import routing module
 import { AppRoutingModule } from './app.routing';
+import { DataService } from './services/data.service';
 
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -45,6 +48,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     AppHeaderModule,
     AppSidebarModule,
     PerfectScrollbarModule,
+    FormsModule,
+    HttpClientModule,
     BsDropdownModule.forRoot()
   ],
   declarations: [
@@ -55,7 +60,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }],
+  }, DataService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
