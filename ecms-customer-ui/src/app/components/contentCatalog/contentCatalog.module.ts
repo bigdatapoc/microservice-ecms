@@ -7,8 +7,10 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { ContentCatalogComponent } from './contentCatalog.component';
 import { AddContentCatalogComponent } from './add.contenCatalog.component';
+import { ViewContentCatalogComponent } from './view.contentCatalog.component';
 import { ContentCatalogRoutingModule } from './contentCatalog-routing.module';
 import { FileUploadModule } from 'ng2-file-upload';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   imports: [
@@ -18,8 +20,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     CommonModule,
     ButtonsModule.forRoot(),
     CollapseModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
+    DataTablesModule
   ],
-  declarations: [ ContentCatalogComponent, AddContentCatalogComponent ]
+  declarations: [ ContentCatalogComponent, AddContentCatalogComponent, ViewContentCatalogComponent ]
 })
 export class ContentCatalogModule { }

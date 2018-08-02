@@ -37,3 +37,23 @@ button.file-select {
     height: 2rem;
     border: 1px solid #8ad4ee;
 }
+
+.dataTables tbody tr{
+    cursor: pointer;
+}
+
+.trim-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 0;
+    white-space: nowrap;
+}
+
+.content-display-box {
+    margin: 20px;
+    text-align: center;
+    height: 55vh;
+}
+
+
+

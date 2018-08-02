@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ContentCatalogComponent } from './contentCatalog.component';
 import { AddContentCatalogComponent } from './add.contenCatalog.component';
+import { ViewContentCatalogComponent } from './view.contentCatalog.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,13 @@ const routes: Routes = [
     component: AddContentCatalogComponent,
     data: {
       title: 'Add Content'
+    }
+  },
+  {
+    path: 'view',
+    component: ViewContentCatalogComponent,
+    data: {
+      title: 'View Content'
     }
   }
 ];

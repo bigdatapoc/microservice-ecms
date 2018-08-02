@@ -12,7 +12,6 @@ export class DataService {
 
   private domain = environment.apiPath;
   public uploadObservable = new BehaviorSubject<Boolean>(false);
-  
   isFileUploaded = this.uploadObservable.asObservable();
 
   updateFileUploadStatus(status) {
@@ -25,6 +24,22 @@ export class DataService {
                     .pipe(
                         catchError((error: any) => Observable.throw(error.json().error || 'server error'))
                     );
+  }
+
+  getAllContent() {
+    return this.http.get(this.domain + '/getall')
+                    .pipe(
+                        catchError((error: any) => Observable.throw(error.json().error || 'server error'))
+                    );
+  }
+
+  getLocalStorage(key) {
+    return JSON.parse(localStorage.getItem(key));
+  }
+
+  setLocalStorage(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
+    return this.getLocalStorage(key); 
   }
 
 }

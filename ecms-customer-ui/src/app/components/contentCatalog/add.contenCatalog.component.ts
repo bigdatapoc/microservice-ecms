@@ -10,7 +10,7 @@ const URL = environment.apiPath + '/api/';
 
 @Component({
   templateUrl: 'add.contentCatalog.component.html',
-  styleUrls: ['add.contentCatalog.component.css']
+  styleUrls: ['contentCatalog.component.css']
 })
 export class AddContentCatalogComponent implements OnInit{
 
