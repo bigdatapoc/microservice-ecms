@@ -32,7 +32,7 @@
                   <tr *ngFor="let content of catalog; let i=index;">
                     <td>{{content.id}}</td>
                     <td>{{content.fileStatus}}</td>
-                    <td class="trim-text" width="20%"><a (click)="viewContent(content.id)">{{content.title}}</a></td>
+                    <td class="trim-text" width="20%"><a href="javascript://" (click)="viewContent(content.id)">{{content.title}}</a></td>
                     <td class="trim-text" width="20%">{{content.description}}</td>
                     <td class="trim-text" width="20%">{{content.tags}}</td>
                     <td><button class="btn btn-outline-danger trash-btn" (click)="deleteContent(content.id)"><i class="fa fa-trash"></i></button></td>
