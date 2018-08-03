@@ -1,41 +1,49 @@
 <div class="animated fadeIn">
     <div class="card">
+        <div class="card-header">
+            <strong>{{content.title}} </strong> 
+            <div class="pull-right col-sm-2">
+                <button *ngIf="content.fileStatus == 'INGESTED'" class="btn btn-success text-white"><i class="fa fa-cog">&nbsp;TRANSCODE</i></button>
+                <button *ngIf="content.fileStatus == 'PROCESSED'" class="btn btn-info text-white"><i class="fa fa-upload">&nbsp;PUBLISH</i></button>
+            </div>
+        </div>
         <div class="card-body">
-            <div class="progress-div">
-                <ol class="track-progress" data-steps="3">
-                    <li [ngClass]="{'done': content.fileStatus == 'INGESTED' ||
-                                            content.fileStatus == 'PROCESSED' ||
-                                            content.fileStatus == 'PUBLISHED'}">
-                        <span>Uploaded</span>
-                        <i></i>
-                    </li>
-                    <li [ngClass]="{'done': content.fileStatus == 'PROCESSED' ||
-                                            content.fileStatus == 'PUBLISHED'}">
-                        <span>Transcoded</span>
-                        <i></i>
-                    </li>
-                    <li [ngClass]="{'done': content.fileStatus == 'PUBLISHED'}">
-                        <span>Published</span>
-                        <i></i>
-                    </li>
-                </ol>
-            </div>    
 
-            <div class="content-display-box">
+            <ul class="progress-indicator">
+                <li [ngClass]="{'completed': content.fileStatus == 'INGESTED' ||
+                                    content.fileStatus == 'PROCESSED' ||
+                                    content.fileStatus == 'PUBLISHED'}">
+                    <span class="bubble"></span>
+                    Uploaded
+                </li>
+                <li [ngClass]="{'completed': content.fileStatus == 'PROCESSED' ||
+                                    content.fileStatus == 'PUBLISHED'}">
+                    <span class="bubble"></span>
+                    Transcoded
+                </li>
+                <li [ngClass]="{'done': content.fileStatus == 'PUBLISHED'}">
+                    <span class="bubble"></span>
+                    Published
+                </li>
+            </ul>
+            <br/>
+            <div class="content-display-box" *ngIf="content.fileStatus == 'PUBLISHED'">
                  <video width="460" height="350" controls>
                      <source src="{{content.ingestionURL}}">
                  </video> 
             </div>
-
+           
             <div class="content-detail-box row">
-                <div class="pull-left col-sm-6">
-                <p><strong>Title: </strong> {{content.title}}</p>
-                <p><strong>Description: </strong>{{content.description}}</p>
+                <div class="col-sm-12">
+                    <p><strong>Description: </strong>{{content.description}}</p>
+                    <p><strong>File Size: </strong>{{content.fileSize}}</p>
+                    <p><strong>Content Type: </strong>{{content.fileContentType}}</p>
+                    <p><strong>File Upload Location: </strong>{{content.ingestionFileLocation}}</p>
+                    <p><strong>File URL: </strong>{{content.ingestionURL}}</p>
+                    <p><strong>File Status: </strong>{{content.fileStatus}}</p>
+                    <p><strong>Tags: </strong>{{content.tags}}</p>
                 </div>
-                <div class="pull-right col-sm-3">
-                    <button *ngIf="content.fileStatus == 'INGESTED'" class="btn btn-success pull-right"><i class="fa fa-cog">&nbsp;TRANSCODE</i></button>
-                    <button *ngIf="content.fileStatus == 'PROCESSED'" class="btn btn-info pull-right"><i class="fa fa-upload">&nbsp;PUBLISH</i></button>
-                </div>
+                
             </div>
         </div>
     </div>

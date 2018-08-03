@@ -26,6 +26,14 @@ export class DataService {
                     );
   }
 
+  saveFtpContent(data): Observable<any>{
+
+    return this.http.post(this.domain + '/ftp', data)
+                    .pipe(
+                        catchError((error: any) => Observable.throw(error.json().error || 'server error'))
+                    );
+  }
+
   getAllContent() {
     return this.http.get(this.domain + '/getall')
                     .pipe(

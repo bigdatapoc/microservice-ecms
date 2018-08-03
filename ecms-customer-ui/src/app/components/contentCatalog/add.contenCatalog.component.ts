@@ -27,6 +27,7 @@ export class AddContentCatalogComponent implements OnInit{
     config: '',
     contentType: ''
   };
+  public uploadType = 'local';
 
   public formData = {
     key: null,
@@ -35,12 +36,21 @@ export class AddContentCatalogComponent implements OnInit{
     tags: null
   };
 
+  public ftpFormData = {
+    host: null,
+    port: null,
+    user: null,
+    password: null,
+    path: null
+  };
+
   private showProgress: Boolean = false;
   private showSpinner: Boolean = false;
   public isFileUploaded: Boolean;
-  private uploadFileKey: String;
+  private uploadFileData;
   public uploader: FileUploader;
   private sub: Subscription;
+  private ftpSub: Subscription;
 
   ngOnInit() {
 
@@ -62,7 +72,7 @@ export class AddContentCatalogComponent implements OnInit{
 
   private onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
       let data = JSON.parse(response); //success server response
-      this.uploadFileKey = data.response;
+      this.uploadFileData = data.response;
       this.dataService.updateFileUploadStatus(true);
   }
 
@@ -78,10 +88,22 @@ export class AddContentCatalogComponent implements OnInit{
     this.showProgress = true;
   }
 
+  uploadFileFromFTP() {
+    this.showProgressBar();
+    this.uploader.progress = 100;
+    this.ftpSub = this.dataService.saveFtpContent(this.ftpFormData).subscribe(resp => {
+      let data = JSON.parse(resp); //success server response
+      this.uploadFileData = data.resp;
+      this.dataService.updateFileUploadStatus(true);
+    });
+  }
+
   public saveForm(isValid) {
     if (isValid) {
       this.showSpinner = true;
-      this.formData['key'] = this.uploadFileKey;
+      let formData = Object.assign(this.formData, this.uploadFileData);
+
+      this.formData = formData;
 
       if (this.formData.tags.trim() != '') {
         this.formData.tags = this.formData.tags.split(',');

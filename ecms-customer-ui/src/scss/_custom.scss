@@ -138,99 +138,184 @@
     padding: 3px 8px;
 }
 
-.track-progress {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-  
-.track-progress li {
-    list-style-type: none;
-    display: inline-block;
-  
-    position: relative;
-    margin: 0;
-    padding: 0;
-  
-    text-align: center;
-    line-height: 30px;
-    height: 30px;
-  
-    background-color: #f0f0f0;
+.flexer,
+.progress-indicator {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
 }
 
-.track-progress[data-steps="3"] li { width: 33%; }
-.track-progress[data-steps="4"] li { width: 25%; }
-.track-progress[data-steps="5"] li { width: 20%; }
-
-.track-progress li > span {
+.no-flexer,
+.progress-indicator.stacked {
     display: block;
-    color: #666;
-    background-color: #ccc;
-    font-weight: bold;
+}
+
+.no-flexer-element {
+    -ms-flex: 0;
+    -webkit-flex: 0;
+    -moz-flex: 0;
+    flex: 0;
+}
+
+.flexer-element,
+.progress-indicator > li {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    flex: 1;
+}
+
+.progress-indicator {
+    margin: 0;
+    padding: 0;
+    font-size: 80%;
     text-transform: uppercase;
-}
-  
-.track-progress li.done > span {
-    color: #fff;
-    background-color: #20a8d8;
+    margin-bottom: 1em;
 }
 
-.track-progress li > span:after,
-.track-progress li > span:before {
-  content: "";
-  display: block;
-  width: 0px;
-  height: 0px;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  border: solid transparent;
-  border-left-color: #ccc;
-  border-width: 15px;
+.progress-indicator > li {
+    list-style: none;
+    text-align: center;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    text-overflow: ellipsis;
+    color: #bbbbbb;
+    display: block;
 }
 
-.track-progress li.done + li > span:before {
-    border-left-color: #20a8d8;
-}
-  
-.track-progress li:first-child > span:after,
-.track-progress li:first-child > span:before {
-    display: none;
+.progress-indicator > li:hover {
+    color: #6e6e6e;
 }
 
-.track-progress li > span:after {
-  top: -5px;
-  z-index: 1;
-  border-left-color: white;
-  border-width: 20px;
+.progress-indicator > li .bubble {
+    border-radius: 1000px;
+    width: 20px;
+    height: 20px;
+    background-color: #bbbbbb;
+    display: block;
+    margin: 0 auto 0.5em auto;
+    border-bottom: 1px solid #888888;
 }
 
-.track-progress li > span:before {
-  z-index: 2;
+.progress-indicator > li .bubble:before,
+.progress-indicator > li .bubble:after {
+    display: block;
+    position: absolute;
+    top: 9px;
+    width: 100%;
+    height: 3px;
+    content: '';
+    background-color: #bbbbbb;
 }
 
-.track-progress li:first-child i,
-.track-progress li:last-child i {
-  display: block;
-  height: 0;
-  width: 0;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  border: solid transparent;
-  border-left-color: white;
-  border-width: 15px;
+.progress-indicator > li .bubble:before {
+    left: 0;
 }
 
-.track-progress li:last-child i {
-  left: auto;
-  right: -15px;
-  border-left-color: transparent;
-  border-top-color: white;
-  border-bottom-color: white;
+.progress-indicator > li .bubble:after {
+    right: 0;
+}
+
+.progress-indicator > li.completed {
+    color: green;
+}
+
+.progress-indicator > li.completed .bubble {
+    background-color: #65d074;
+    color: #65d074;
+    border-color: #247830;
+}
+
+.progress-indicator > li.completed .bubble:before,
+.progress-indicator > li.completed .bubble:after {
+    background-color: #65d074;
+    border-color: #247830;
+}
+
+.progress-indicator > li a:hover .bubble {
+    background-color: #5671d0;
+    color: #5671d0;
+    border-color: #1f306e;
+}
+
+.progress-indicator > li a:hover .bubble:before,
+.progress-indicator > li a:hover .bubble:after {
+    background-color: #5671d0;
+    border-color: #1f306e;
+}
+
+.progress-indicator > li.danger .bubble {
+    background-color: #d3140f;
+    color: #d3140f;
+    border-color: #440605;
+}
+
+.progress-indicator > li.danger .bubble:before,
+.progress-indicator > li.danger .bubble:after {
+    background-color: #d3140f;
+    border-color: #440605;
+}
+
+.progress-indicator > li.warning .bubble {
+    background-color: #edb10a;
+    color: #edb10a;
+    border-color: #5a4304;
+}
+
+.progress-indicator > li.warning .bubble:before,
+.progress-indicator > li.warning .bubble:after {
+    background-color: #edb10a;
+    border-color: #5a4304;
+}
+
+.progress-indicator > li.info .bubble {
+    background-color: #5b32d6;
+    color: #5b32d6;
+    border-color: #25135d;
+}
+
+.progress-indicator > li.info .bubble:before,
+.progress-indicator > li.info .bubble:after {
+    background-color: #5b32d6;
+    border-color: #25135d;
+}
+
+.progress-indicator.stacked > li {
+    text-indent: -10px;
+    text-align: center;
+    display: block;
+}
+
+.progress-indicator.stacked > li .bubble:before,
+.progress-indicator.stacked > li .bubble:after {
+    left: 50%;
+    margin-left: -1.5px;
+    width: 3px;
+    height: 100%;
+}
+
+.progress-indicator.stacked .stacked-text {
+    position: relative;
+    z-index: 10;
+    top: 0;
+    margin-left: 60% !important;
+    width: 45% !important;
+    display: inline-block;
+    text-align: left;
+    line-height: 1.2em;
+}
+
+.progress-indicator.stacked > li a {
+    border: none;
+}
+
+@media handheld,
+screen and (max-width: 400px) {
+    .progress-indicator {
+        font-size: 60%;
+    }
 }

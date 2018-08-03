@@ -2,19 +2,85 @@
     <div class="card">
         <div class="card-body">
             <form #dataForm="ngForm" #f="ngForm" (ngSubmit)="saveForm(dataForm.valid)" novalidate>
-                <div class="input-box" *ngIf="!showProgress">
-                    <button class="file-select" (click)="triggerClick()"></button>
-                    <p>Select file to upload</p>
+               
+                <div class="form-group row upload-config-div" *ngIf="!showProgress">
+                    <label class="col-md-2 col-form-label" for="inline-radios">Upload file from: </label>
+                    <div class="col-md-9 col-form-label">
+                        <div class="form-check form-check-inline mr-3" id="inline-radios">
+                            <input class="form-check-input" id="inlineRadio1" name="inline-radios" type="radio" value="local" [(ngModel)]="uploadType">
+                            <label class="form-check-label" for="inlineRadio1">Local System</label>
+                        </div>
+                        <div class="form-check form-check-inline mr-1">
+                            <input class="form-check-input" id="inlineRadio2" name="inline-radios" type="radio" value="ftp" [(ngModel)]="uploadType">
+                            <label class="form-check-label" for="inlineRadio2">Remote FTP</label>
+                        </div>
+                    </div>
+                    <hr/>
                 </div>
-
-                <input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="showProgressBar()" #fileInput class="hide-this" />
                 
+
+                <div *ngIf="uploadType == 'local'">
+                    <div class="input-box" *ngIf="!showProgress">
+                        <button class="file-select" (click)="triggerClick()"></button>
+                        <p>Select file to upload</p>
+                    </div>
+
+                    <input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="showProgressBar()" #fileInput class="hide-this" />
+                </div>
+                <div *ngIf="uploadType == 'ftp' && !showProgress">
+                    <div class="row col-sm-12">
+                        <div class="form-group col-sm-4">
+                            <label for="host">Host</label>
+                            <input type="text" class="form-control col-sm-12" [(ngModel)]="ftpFormData.host" id="host" placeholder="Enter host name here" autocomplete="off" name="title"  #host="ngModel">
+
+                           
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="port">Port Number</label>
+                            <input type="text" class="form-control col-sm-12" [(ngModel)]="ftpFormData.port" id="port" placeholder="Enter port number here" autocomplete="off" name="port"  #port="ngModel">
+
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="form-group col-sm-4">
+                            <label for="user">Username</label>
+                            <input type="text" class="form-control col-sm-12" [(ngModel)]="ftpFormData.user" id="user" placeholder="Enter username here" autocomplete="off" name="user"  #user="ngModel" >
+
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control col-sm-12" [(ngModel)]="ftpFormData.password" id="password" placeholder="Enter ftp password here" autocomplete="off" name="password"  #password="ngModel">                           
+                        </div>
+                    </div>
+                                       
+                    <div class="row col-sm-12">
+                        <div class="form-group col-sm-8">
+                            <label for="path">Path</label>
+                            <input type="text" class="form-control col-sm-12" [(ngModel)]="ftpFormData.path" id="path" placeholder="Enter file path here" autocomplete="off" name="path"  #path="ngModel">
+
+                           
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row col-sm-8">
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-block btn-primary" (click)="uploadFileFromFTP()">Submit</button>
+                        </div>
+                    </div>
+                    
+                </div>
                 <div class="meta-data-box" *ngIf="showProgress">
                     
                     <div class="col-sm-12 mb-4">
                         <p>Upload Status: </p>
                         <div class="progress" style="margin-bottom: 0;">
-                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }">{{uploader.progress}}%</div>
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }">
+                                <span *ngIf="uploader.progress < 100 && !isFileUploaded">{{uploader.progress}}%</span>
+                                <span *ngIf="uploader.progress == 100 && !isFileUploaded">Processing&nbsp;
+                                    <img src="../../../assets/img/spinner-white.gif" alt="..."/>
+                                </span>
+                                <span *ngIf="uploader.progress == 100 && isFileUploaded">File Processing Completed</span>
+                            </div>
                         </div>
                     </div>
 
@@ -31,12 +97,7 @@
                             </div> 
                         </div>
                     </div>
-                    <!-- <div class="row col-sm-12">
-                        <div class="form-group col-sm-8">
-                            <label for="cf1">Short Description</label>
-                            <input type="text" class="form-control col-sm-12" id="cf1" placeholder="Short Description">
-                        </div>
-                    </div> -->
+                    
                     <div class="row col-sm-12">
                         <div class="form-group col-sm-8">
                             <label for="cf3">Description</label>

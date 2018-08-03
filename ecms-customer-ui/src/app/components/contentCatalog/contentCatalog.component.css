@@ -55,5 +55,15 @@ button.file-select {
     height: 55vh;
 }
 
+.upload-config-div {
+    font-size: 15px;
+}
 
+.progress-bar span {
+    font-size: 15px;
+}
+
+.progress-bar img {
+    height: 21px;
+}
 
