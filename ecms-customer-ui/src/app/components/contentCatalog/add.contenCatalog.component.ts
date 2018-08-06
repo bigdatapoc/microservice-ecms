@@ -6,7 +6,7 @@ import  { Subscription } from "rxjs/Rx";
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-const URL = environment.apiPath + '/api/';
+const URL = environment.apiPath + '/ingestion';
 
 @Component({
   templateUrl: 'add.contentCatalog.component.html',
@@ -72,7 +72,7 @@ export class AddContentCatalogComponent implements OnInit{
 
   private onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
       let data = JSON.parse(response); //success server response
-      this.uploadFileData = data.response;
+      this.uploadFileData = data.data;
       this.dataService.updateFileUploadStatus(true);
   }
 
@@ -91,18 +91,20 @@ export class AddContentCatalogComponent implements OnInit{
   uploadFileFromFTP() {
     this.showProgressBar();
     this.uploader.progress = 100;
+	this.ftpFormData['remoteFile'] = this.ftpFormData.path; 
+	delete this.ftpFormData.path;
     this.ftpSub = this.dataService.saveFtpContent(this.ftpFormData).subscribe(resp => {
-      let data = JSON.parse(resp); //success server response
-      this.uploadFileData = data.resp;
+      this.uploadFileData = resp.data;
       this.dataService.updateFileUploadStatus(true);
     });
   }
 
   public saveForm(isValid) {
-    if (isValid) {
+    if (isValid && this.uploadFileData != undefined) {
       this.showSpinner = true;
-      let formData = Object.assign(this.formData, this.uploadFileData);
-
+	  
+      let formData = Object.assign({}, this.uploadFileData, this.formData);
+	 
       this.formData = formData;
 
       if (this.formData.tags.trim() != '') {

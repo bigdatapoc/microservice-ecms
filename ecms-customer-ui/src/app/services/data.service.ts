@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
@@ -20,7 +20,7 @@ export class DataService {
 
   saveContent(data): Observable<any>{
 
-    return this.http.post(this.domain + '/saveContent', data)
+    return this.http.post(this.domain + '/ingestion/metadata', data)
                     .pipe(
                         catchError((error: any) => Observable.throw(error.json().error || 'server error'))
                     );
@@ -28,14 +28,14 @@ export class DataService {
 
   saveFtpContent(data): Observable<any>{
 
-    return this.http.post(this.domain + '/ftp', data)
+    return this.http.post(this.domain + '/ingestion/ftp', data)
                     .pipe(
                         catchError((error: any) => Observable.throw(error.json().error || 'server error'))
                     );
   }
 
   getAllContent() {
-    return this.http.get(this.domain + '/getall')
+    return this.http.get(this.domain + '/ingestion')
                     .pipe(
                         catchError((error: any) => Observable.throw(error.json().error || 'server error'))
                     );

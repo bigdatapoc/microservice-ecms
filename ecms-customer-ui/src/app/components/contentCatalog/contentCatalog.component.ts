@@ -36,8 +36,9 @@ export class ContentCatalogComponent implements OnDestroy, OnInit{
     this.sub = this.dataService.getAllContent().subscribe(resp => {
       if (resp['status'] && resp['status'] == 'SUCCESS') {
         this.catalog = resp['data'];
-        this.dtTrigger.next();
       }
+	  
+	  this.dtTrigger.next();
     });
 
   }
