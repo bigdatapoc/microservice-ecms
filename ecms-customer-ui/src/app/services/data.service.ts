@@ -11,6 +11,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   private domain = environment.apiPath;
+  private transcodingDomain = environment.transcodeApiPath;
   public uploadObservable = new BehaviorSubject<Boolean>(false);
   isFileUploaded = this.uploadObservable.asObservable();
 
@@ -41,6 +42,13 @@ export class DataService {
                     );
   }
 
+  getContentById(id) {
+    return this.http.get(this.domain + `/ingestion/${id}`)
+                    .pipe(
+                        catchError((error: any) => Observable.throw(error.json().error || 'server error'))
+                    );
+  }
+
   getLocalStorage(key) {
     return JSON.parse(localStorage.getItem(key));
   }
@@ -48,6 +56,14 @@ export class DataService {
   setLocalStorage(key, val) {
     localStorage.setItem(key, JSON.stringify(val));
     return this.getLocalStorage(key); 
+  }
+
+  transcode(data): Observable<any>{
+
+    return this.http.post(this.domain + '/transcode', data)
+                    .pipe(
+                        catchError((error: any) => Observable.throw(error.json().error || 'server error'))
+                    );
   }
 
 }

@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  apiPath: 'http://localhost:8070'
+  apiPath: 'http://localhost:3000',
+  transcodeApiPath: 'http://localhost:8098'
 };

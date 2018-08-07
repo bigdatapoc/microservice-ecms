@@ -45,8 +45,7 @@ export class ContentCatalogComponent implements OnDestroy, OnInit{
 
   viewContent(id) {
     let content = this.catalog.find(obj => obj.id == id);
-    this.dataService.setLocalStorage('selectedContent', content);
-    this.router.navigate(['/contentCatalog/view']);
+    this.router.navigate(['/contentCatalog/view', id]);
   }
 
   deleteContent(id) {

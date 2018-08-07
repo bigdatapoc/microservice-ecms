@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
     <div class="card">
         <div class="card-body">
-            <form #dataForm="ngForm" #f="ngForm" (ngSubmit)="saveForm(dataForm.valid)" novalidate>
+            <form #dataForm="ngForm" (ngSubmit)="saveForm(dataForm.valid)" novalidate>
                
                 <div class="form-group row upload-config-div" *ngIf="!showProgress">
                     <label class="col-md-2 col-form-label" for="inline-radios">Upload file from: </label>

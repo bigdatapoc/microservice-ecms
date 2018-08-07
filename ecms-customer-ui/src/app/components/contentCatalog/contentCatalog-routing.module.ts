@@ -21,7 +21,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'view',
+    path: 'view/:id',
     component: ViewContentCatalogComponent,
     data: {
       title: 'View Content'

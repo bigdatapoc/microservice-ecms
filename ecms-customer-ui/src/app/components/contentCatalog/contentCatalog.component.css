@@ -67,3 +67,16 @@ button.file-select {
     height: 21px;
 }
 
+.modal-loading-div {
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.modal-loading-div p {
+    margin: 0;
+}
+
+.modal-loading-div img {
+    height: 10px;
+    width: 100%;
+}

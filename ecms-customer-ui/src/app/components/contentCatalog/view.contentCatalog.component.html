@@ -3,7 +3,7 @@
         <div class="card-header">
             <strong>{{content.title}} </strong> 
             <div class="pull-right col-sm-2">
-                <button *ngIf="content.fileStatus == 'INGESTED'" class="btn btn-success text-white"><i class="fa fa-cog">&nbsp;TRANSCODE</i></button>
+                <button *ngIf="content.fileStatus == 'INGESTED'" class="btn btn-success text-white" (click)="transcodeModal.show()"><i class="fa fa-cog">&nbsp;TRANSCODE</i></button>
                 <button *ngIf="content.fileStatus == 'PROCESSED'" class="btn btn-info text-white"><i class="fa fa-upload">&nbsp;PUBLISH</i></button>
             </div>
         </div>
@@ -47,4 +47,45 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="modal fade" bsModal #transcodeModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-static-name" class="modal-title pull-left">{{content.title}}</h4>
+      </div>
+        <div class="modal-body">
+            <div *ngIf="transcodeStatus == 'not-started'">
+                <form #transcodeForm="ngForm">
+                    <div class="form-group">
+                        <label for="contentFormat" class="col-form-label">Select Format:</label>
+                        <select class="form-control" id="contentFormat" [(ngModel)]="conversionType" name="conversionType">
+                            <option value="HLS">HLS</option>
+                            <option value="MP4">MP4</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-loading-div" *ngIf="transcodeStatus == 'in-progress'">
+                <p>Transcoding in progress</p>
+                <img src="../../../assets/img/loading.gif" alt="please wait..."/>
+            </div>
+            <div class="modal-loading-div" *ngIf="transcodeStatus == 'success'">
+                <p class="text-success">Transcoding completed successfully.</p>
+            </div>
+        </div>
+        
+        <div class="modal-footer" *ngIf="transcodeStatus == 'not-started'">
+            <button type="button" class="btn btn-secondary" (click)="transcodeModal.hide()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="transcode();">Transcode</button>  
+        </div>
+
+        <div class="modal-footer" *ngIf="transcodeStatus == 'success'">
+            <button type="button" class="btn btn-primary" (click)="transcodeModal.hide()">Close</button>
+        </div>
+    </div>
+  </div>
 </div>

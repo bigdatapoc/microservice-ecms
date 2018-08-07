@@ -11,6 +11,7 @@ import { ViewContentCatalogComponent } from './view.contentCatalog.component';
 import { ContentCatalogRoutingModule } from './contentCatalog-routing.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { DataTablesModule } from 'angular-datatables';
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { DataTablesModule } from 'angular-datatables';
     ButtonsModule.forRoot(),
     CollapseModule.forRoot(),
     FileUploadModule,
-    DataTablesModule
+    DataTablesModule,
+    ModalModule.forRoot()
   ],
   declarations: [ ContentCatalogComponent, AddContentCatalogComponent, ViewContentCatalogComponent ]
 })
