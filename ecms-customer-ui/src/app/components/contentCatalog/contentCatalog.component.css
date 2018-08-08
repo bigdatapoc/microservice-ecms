@@ -74,9 +74,25 @@ button.file-select {
 
 .modal-loading-div p {
     margin: 0;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .modal-loading-div img {
     height: 10px;
     width: 100%;
+}
+
+.bg-danger {
+    background-color: #d00000 !important;
+}
+
+.border-danger {
+    border: 1px solid #d00000 !important;
+}
+
+#video_player {
+    width: 70%;
+    height: 48vh;
+    margin-left: 15%;
 }

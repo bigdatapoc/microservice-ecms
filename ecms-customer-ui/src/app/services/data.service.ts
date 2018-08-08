@@ -12,6 +12,7 @@ export class DataService {
 
   private domain = environment.apiPath;
   private transcodingDomain = environment.transcodeApiPath;
+  private publishDomain = environment.publishApiPath;
   public uploadObservable = new BehaviorSubject<Boolean>(false);
   isFileUploaded = this.uploadObservable.asObservable();
 
@@ -61,6 +62,14 @@ export class DataService {
   transcode(data): Observable<any>{
 
     return this.http.post(this.transcodingDomain + '/transcode', data)
+                    .pipe(
+                        catchError((error: any) => Observable.throw(error.json().error || 'server error'))
+                    );
+  }
+
+  publishContent(data): Observable<any>{
+
+    return this.http.post(this.publishDomain + '/distribute', data)
                     .pipe(
                         catchError((error: any) => Observable.throw(error.json().error || 'server error'))
                     );

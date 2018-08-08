@@ -45,6 +45,7 @@
     "rxjs-compat": "^6.2.1",
     "simple-line-icons": "^2.4.1",
     "ts-helpers": "^1.1.2",
+    "video.js": "^7.1.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

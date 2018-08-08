@@ -44,13 +44,14 @@ export class AddContentCatalogComponent implements OnInit{
     path: null
   };
 
-  private showProgress: Boolean = false;
-  private showSpinner: Boolean = false;
+  public showProgress: Boolean = false;
+  public showSpinner: Boolean = false;
   public isFileUploaded: Boolean;
   private uploadFileData;
   public uploader: FileUploader;
   private sub: Subscription;
   private ftpSub: Subscription;
+  public fileUploadStatus: String;
 
   ngOnInit() {
 
@@ -74,10 +75,11 @@ export class AddContentCatalogComponent implements OnInit{
       let data = JSON.parse(response); //success server response
       this.uploadFileData = data.data;
       this.dataService.updateFileUploadStatus(true);
+      this.fileUploadStatus = 'success';
   }
 
   private onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-      let error = JSON.parse(response); //error server response
+      this.fileUploadStatus = 'error';
   }
 
   public triggerClick() {
@@ -91,11 +93,18 @@ export class AddContentCatalogComponent implements OnInit{
   uploadFileFromFTP() {
     this.showProgressBar();
     this.uploader.progress = 100;
-	this.ftpFormData['remoteFile'] = this.ftpFormData.path; 
-	delete this.ftpFormData.path;
+	  this.ftpFormData['remoteFile'] = this.ftpFormData.path; 
+	  delete this.ftpFormData.path;
     this.ftpSub = this.dataService.saveFtpContent(this.ftpFormData).subscribe(resp => {
-      this.uploadFileData = resp.data;
-      this.dataService.updateFileUploadStatus(true);
+
+      if (resp.status == 'SUCCESS') {
+        this.uploadFileData = resp.data;
+        this.dataService.updateFileUploadStatus(true);
+        this.fileUploadStatus = 'success';
+      } else {
+        this.fileUploadStatus = 'error';
+      }
+      
     });
   }
 

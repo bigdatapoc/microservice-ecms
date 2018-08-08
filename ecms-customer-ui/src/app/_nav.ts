@@ -3,7 +3,7 @@ export const navItems = [
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer'
-  },
+  }/*,
   {
     name: 'Content Types',
     url: '/contentTypes',
@@ -13,12 +13,12 @@ export const navItems = [
     name: 'Content Config.',
     url: '/contentConfig',
     icon: 'icon-docs'
-  },
+  }*/,
   {
     name: 'Content Catalog',
     url: '/contentCatalog',
     icon: 'icon-layers'
-  },
+  }/*,
   {
     name: 'Users',
     url: '/users',
@@ -50,5 +50,5 @@ export const navItems = [
         icon: 'icon-shuffle'
       }
     ]
-  }
+  }*/
 ];

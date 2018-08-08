@@ -4,7 +4,7 @@
             <strong>{{content.title}} </strong> 
             <div class="pull-right col-sm-2">
                 <button *ngIf="content.fileStatus == 'INGESTED'" class="btn btn-success text-white" (click)="transcodeModal.show()"><i class="fa fa-cog">&nbsp;TRANSCODE</i></button>
-                <button *ngIf="content.fileStatus == 'PROCESSED'" class="btn btn-info text-white"><i class="fa fa-upload">&nbsp;PUBLISH</i></button>
+                <button *ngIf="content.fileStatus == 'PROCESSED'" class="btn btn-info text-white" (click)="publishModal.show(); publish();"><i class="fa fa-upload">&nbsp;PUBLISH</i></button>
             </div>
         </div>
         <div class="card-body">
@@ -21,27 +21,73 @@
                     <span class="bubble"></span>
                     Transcoded
                 </li>
-                <li [ngClass]="{'done': content.fileStatus == 'PUBLISHED'}">
+                <li [ngClass]="{'completed': content.fileStatus == 'PUBLISHED'}">
                     <span class="bubble"></span>
                     Published
                 </li>
             </ul>
             <br/>
             <div class="content-display-box" *ngIf="content.fileStatus == 'PUBLISHED'">
-                 <video width="460" height="350" controls>
-                     <source src="{{content.ingestionURL}}">
-                 </video> 
+                <video id="video_player"
+                    class="video-js vjs-default-skin vjs-big-play-centered "
+                    controls preload="auto">
+                    
+                   <source src="{{content.publishURL}}" type="{{content.fileContentType}}" />
+                  
+                 </video>
+                
+                 
             </div>
            
             <div class="content-detail-box row">
                 <div class="col-sm-12">
-                    <p><strong>Description: </strong>{{content.description}}</p>
-                    <p><strong>File Size: </strong>{{content.fileSize}}</p>
-                    <p><strong>Content Type: </strong>{{content.fileContentType}}</p>
-                    <p><strong>File Upload Location: </strong>{{content.ingestionFileLocation}}</p>
-                    <p><strong>File URL: </strong>{{content.ingestionURL}}</p>
-                    <p><strong>File Status: </strong>{{content.fileStatus}}</p>
-                    <p><strong>Tags: </strong>{{content.tags}}</p>
+                    <table class="table table-hover">
+                        <tr>
+                            <td width="30%"><strong>Title</strong></td>
+                            <td>{{content.title}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>Description</strong></td>
+                            <td>{{content.description}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>File Size</strong></td>
+                            <td>{{content.fileSize}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>Content Type</strong></td>
+                            <td>{{content.fileContentType}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>Ingested Location</strong></td>
+                            <td>{{content.ingestionFileLocation}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>Ingested URL</strong></td>
+                            <td>{{content.ingestionURL}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>Processed Location</strong></td>
+                            <td>{{content.processFileLocation}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>Process URL</strong></td>
+                            <td>{{content.processURL}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>Publish Location</strong></td>
+                            <td>{{content.publishURL}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>File Status</strong></td>
+                            <td>{{content.fileStatus}}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><strong>Tags</strong></td>
+                            <td>{{content.tags}}</td>
+                        </tr>
+                    </table>
+                   
                 </div>
                 
             </div>
@@ -55,7 +101,7 @@
   <div class="modal-dialog modal-dialog-centered modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-static-name" class="modal-title pull-left">{{content.title}}</h4>
+        <h5 id="dialog-static-name" class="modal-title pull-left">{{content.title}}</h5>
       </div>
         <div class="modal-body">
             <div *ngIf="transcodeStatus == 'not-started'">
@@ -76,6 +122,9 @@
             <div class="modal-loading-div" *ngIf="transcodeStatus == 'success'">
                 <p class="text-success">Transcoding completed successfully.</p>
             </div>
+            <div class="modal-loading-div" *ngIf="transcodeStatus == 'error'">
+                <p class="text-danger">There is some issue. Please contact administrator.</p>
+            </div>
         </div>
         
         <div class="modal-footer" *ngIf="transcodeStatus == 'not-started'">
@@ -83,8 +132,35 @@
             <button type="button" class="btn btn-primary" (click)="transcode();">Transcode</button>  
         </div>
 
-        <div class="modal-footer" *ngIf="transcodeStatus == 'success'">
+        <div class="modal-footer" *ngIf="transcodeStatus == 'success' || transcodeStatus == 'error'">
             <button type="button" class="btn btn-primary" (click)="transcodeModal.hide()">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #publishModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="dialog-static-name" class="modal-title pull-left">{{content.title}}</h5>
+      </div>
+        <div class="modal-body">
+            <div class="modal-loading-div" *ngIf="publishStatus == 'in-progress'">
+                <p>Publishing content...</p>
+                <img src="../../../assets/img/loading.gif" alt="please wait..."/>
+            </div>
+            <div class="modal-loading-div" *ngIf="publishStatus == 'success'">
+                <p class="text-success">Content published successfully.</p>
+            </div>
+            <div class="modal-loading-div" *ngIf="publishStatus == 'error'">
+                <p class="text-danger">There is some issue. Please contact administrator.</p>
+            </div>
+        </div>
+        
+        <div class="modal-footer" *ngIf="publishStatus == 'success' || publishStatus == 'error'">
+            <button type="button" class="btn btn-primary" (click)="publishModal.hide()">Close</button>
         </div>
     </div>
   </div>

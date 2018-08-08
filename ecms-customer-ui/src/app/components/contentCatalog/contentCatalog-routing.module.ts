@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component: ContentCatalogComponent,
     data: {
-      title: 'Content Catalog'
+      title: 'Content Catalog',
     }
   },
   {

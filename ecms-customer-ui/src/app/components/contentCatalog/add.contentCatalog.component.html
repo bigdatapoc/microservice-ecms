@@ -73,13 +73,14 @@
                     
                     <div class="col-sm-12 mb-4">
                         <p>Upload Status: </p>
-                        <div class="progress" style="margin-bottom: 0;">
-                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }">
-                                <span *ngIf="uploader.progress < 100 && !isFileUploaded">{{uploader.progress}}%</span>
-                                <span *ngIf="uploader.progress == 100 && !isFileUploaded">Processing&nbsp;
+                        <div class="progress" style="margin-bottom: 0;" [ngClass]="{'border-danger': fileUploadStatus == 'error'}">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }" [ngClass]="{'bg-danger': fileUploadStatus == 'error'}">
+                                <span *ngIf="uploader.progress < 100 && !isFileUploaded && fileUploadStatus != 'error'">{{uploader.progress}}%</span>
+                                <span *ngIf="uploader.progress == 100 && !isFileUploaded && fileUploadStatus != 'error'">Processing&nbsp;
                                     <img src="../../../assets/img/spinner-white.gif" alt="..."/>
                                 </span>
-                                <span *ngIf="uploader.progress == 100 && isFileUploaded">File Processing Completed</span>
+                                <span *ngIf="uploader.progress == 100 && isFileUploaded && fileUploadStatus != 'error'">File Processing Completed</span>
+                                <span *ngIf="fileUploadStatus == 'error'">File Processing Failed. Please try again.</span>
                             </div>
                         </div>
                     </div>
@@ -114,7 +115,7 @@
                 <br/>
                 <div class="row col-sm-8" *ngIf="showProgress">
                     <div class="col-sm-3">
-                        <button type="submit" class="btn btn-block btn-primary" [disabled]="!isFileUploaded">{{ (isFileUploaded == false)? 'Please wait':'Save'}}</button>
+                        <button type="submit" class="btn btn-block btn-primary" [disabled]="!isFileUploaded" *ngIf="fileUploadStatus != 'error'">{{ (isFileUploaded == false)? 'Please wait':'Save'}}</button>
                     </div>
                     <div class="col-sm-3">
                         <button class="btn btn-block btn-secondary" (click)="cancel()">Cancel</button>
