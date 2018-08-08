@@ -60,7 +60,7 @@ export class DataService {
 
   transcode(data): Observable<any>{
 
-    return this.http.post(this.domain + '/transcode', data)
+    return this.http.post(this.transcodingDomain + '/transcode', data)
                     .pipe(
                         catchError((error: any) => Observable.throw(error.json().error || 'server error'))
                     );

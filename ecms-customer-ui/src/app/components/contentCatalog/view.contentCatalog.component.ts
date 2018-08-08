@@ -46,7 +46,7 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy{
 
     this.transcodeSub = this.dataService.transcode(transcodeObj).subscribe(resp => {
       
-      if (resp.status == 'SUCCESS') {
+      if (resp.status == 'Success') {
         this.getSelectedContent(this.id);
         this.transcodeStatus = 'success';
       } else {
