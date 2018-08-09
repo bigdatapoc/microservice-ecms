@@ -11,7 +11,7 @@ declare const videojs: any;
 })
 export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterViewInit{
 
-  public content = {};
+  public content = null;
   private transcodeSub: Subscription;
   public conversionType = 'HLS';
   public transcodeStatus = 'not-started';
@@ -38,7 +38,7 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
 
   ngAfterViewInit() {
     
-    if (this.content['fileStatus'] == 'PUBLISHED') {
+    if (this.content != null && this.content['fileStatus'] == 'PUBLISHED') {
       let el = 'video_player';
 
       this.player = videojs(document.getElementById(el), {}, () => {
@@ -108,7 +108,7 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
       this.transcodeSub.unsubscribe();
     }
 
-    if (this.content['fileStatus'] == 'PUBLISHED') {
+    if (this.content != null && this.content['fileStatus'] == 'PUBLISHED') {
       this.player.dispose();
     }
 
