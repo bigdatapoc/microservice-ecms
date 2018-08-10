@@ -8,24 +8,32 @@ import { ViewContentCatalogComponent } from './view.contentCatalog.component';
 const routes: Routes = [
   {
     path: '',
-    component: ContentCatalogComponent,
     data: {
       title: 'Content Catalog',
-    }
-  },
-  {
-    path: 'add',
-    component: AddContentCatalogComponent,
-    data: {
-      title: 'Add Content'
-    }
-  },
-  {
-    path: 'view/:id',
-    component: ViewContentCatalogComponent,
-    data: {
-      title: 'View Content'
-    }
+    },
+    children: [
+      {
+        path: 'list',
+        component: ContentCatalogComponent,
+        data: {
+          title: 'List'
+        }
+      },
+      {
+        path: 'add',
+        component: AddContentCatalogComponent,
+        data: {
+          title: 'Add Content'
+        }
+      },
+      {
+        path: 'view/:id',
+        component: ViewContentCatalogComponent,
+        data: {
+          title: 'View Content'
+        }
+      }
+    ]
   }
 ];
 

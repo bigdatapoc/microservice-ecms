@@ -65,7 +65,6 @@ export class AddContentCatalogComponent implements OnInit{
     this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
 
     this.dataService.uploadObservable.subscribe((val) => {
-      console.log('change detected', val);
       this.isFileUploaded = val;
     });
 

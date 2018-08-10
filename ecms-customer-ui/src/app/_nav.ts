@@ -16,8 +16,20 @@ export const navItems = [
   }*/,
   {
     name: 'Content Catalog',
-    url: '/contentCatalog',
-    icon: 'icon-layers'
+    url: '/contentCatalog/list',
+    icon: 'icon-layers',
+    children: [
+      {
+        name: 'List Content',
+        url: '/contentCatalog/list',
+        icon: 'icon-list'
+      },
+      {
+        name: 'Add Content',
+        url: '/contentCatalog/add',
+        icon: 'icon-plus'
+      }
+    ]
   }/*,
   {
     name: 'Users',

@@ -29,10 +29,11 @@
             <br/>
             <div class="content-display-box" *ngIf="content.fileStatus == 'PUBLISHED'">
                 <video id="video_player"
-                    class="video-js vjs-default-skin vjs-big-play-centered "
-                    controls preload="auto">
-                    
-                   <source src="{{content.publishURL}}" type="application/x-mpegURL" />
+                    class="video-js vjs-default-skin vjs-big-play-centered"
+                    controls>
+                    <!-- <source src="https://vjs.zencdn.net/v/oceans.mp4?sd" type='video/mp4' label='SD' res='480' />
+                    <source src="https://vjs.zencdn.net/v/oceans.mp4?hd" type='video/mp4' label='HD' res='1080'/> -->
+                   <!-- <source src="{{content.publishURL}}" type="video/MP4" /> -->
                   
                  </video>
                 
@@ -41,7 +42,7 @@
            
             <div class="content-detail-box row">
                 <div class="col-sm-12">
-                    <table class="table table-hover">
+                    <table class="table table-hover" *ngIf="content != null">
                         <tr>
                             <td width="30%"><strong>Title</strong></td>
                             <td>{{content.title}}</td>
@@ -66,15 +67,15 @@
                             <td width="30%"><strong>Ingested URL</strong></td>
                             <td>{{content.ingestionURL}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="content.fileStatus == 'PROCESSED'">
                             <td width="30%"><strong>Processed Location</strong></td>
                             <td>{{content.processFileLocation}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="content.fileStatus == 'PROCESSED'">
                             <td width="30%"><strong>Process URL</strong></td>
                             <td>{{content.processURL}}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="content.fileStatus == 'PUBLISHED'">
                             <td width="30%"><strong>Publish Location</strong></td>
                             <td>{{content.publishURL}}</td>
                         </tr>

@@ -28,6 +28,7 @@
               "node_modules/simple-line-icons/css/simple-line-icons.css",
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
               "node_modules/video.js/dist/video-js.min.css",
+              "node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.css",
               "src/scss/style.scss"
             ],
             "scripts": [
@@ -35,7 +36,8 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.js",
               "node_modules/froala-editor/js/froala_editor.pkgd.min.js",
-              "node_modules/video.js/dist/video.min.js"
+              "node_modules/video.js/dist/video.min.js",
+              "node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.js"
             ]
           },
           "configurations": {

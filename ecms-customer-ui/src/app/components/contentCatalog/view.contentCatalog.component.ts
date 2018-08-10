@@ -39,11 +39,35 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
   ngAfterViewInit() {
     
     if (this.content != null && this.content['fileStatus'] == 'PUBLISHED') {
-      let el = 'video_player';
+      // let el = 'video_player';
+     
+      // this.player = videojs('#video_player', { plugins : { resolutionSelector : {} } }, function() {
+      //   //video configs
+      // });
 
-      this.player = videojs(document.getElementById(el), {}, () => {
-        //video configs
+      this.player = videojs(document.getElementById('video_player'), {
+        plugins: {
+          videoJsResolutionSwitcher: {
+            default: 'low',
+            dynamicLabel: true
+          }
+        }
       });
+
+      this.player.updateSrc([
+        {
+          src: 'https://d3njk02ga9lv3t.cloudfront.net/video/d7b38a21-5069-4f07-af9a-26866e53419f_HCL_TEST/HLS/d7b38a21-5069-4f07-af9a-26866e53419f_HCL_TEST352x240.m3u8',
+          type: 'application/x-mpegURL',
+          res: 480,
+          label: 'SD'
+        },
+        {
+          src: 'https://vjs.zencdn.net/v/oceans.mp4',
+          type: 'video/mp4',
+          res: 720,
+          label: 'HD'
+        },
+      ])
 
     }
 
@@ -51,9 +75,26 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
 
   getSelectedContent(id) {
     
-    this.contentSub = this.dataService.getContentById(id).subscribe(resp => {
-      this.content = resp['data'];
-    });
+    this.content = {
+		  "id": 8,
+		  "title": "TEST",
+		  "description": "TEST",
+		  "tags": null,
+		  "fileKey": "9264aa53-bba1-4fea-8119-d7747300f3df_HCL_TEST.mp4",
+		  "fileSize": 383631,
+		  "fileContentType": "video/mp4",
+		  "ingestionFileLocation": "ott-ingestion-bucket/video/9264aa53-bba1-4fea-8119-d7747300f3df_HCL_TEST.mp4",
+		  "ingestionURL": "https://s3.ap-south-1.amazonaws.com/ott-ingestion-bucket/video/9264aa53-bba1-4fea-8119-d7747300f3df_HCL_TEST.mp4",
+		  "processFileLocation": "ott-ingestion-bucket/video/9264aa53-bba1-4fea-8119-d7747300f3df_HCL_TEST.mp4",
+		  "processURL": null,
+		  "publishFileLocation": null,
+		  "publishURL": "http://techslides.com/demos/sample-videos/small.mp4",
+		  "fileStatus": "PUBLISHED"
+		}
+
+    // this.contentSub = this.dataService.getContentById(id).subscribe(resp => {
+    //   this.content = resp['data'];
+    // });
   }
 
   transcode() {
@@ -102,7 +143,7 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-    this.contentSub.unsubscribe();
+    //this.contentSub.unsubscribe();
 
     if (this.transcodeStatus != 'not-started' || this.publishStatus != 'not-started') {
       this.transcodeSub.unsubscribe();
