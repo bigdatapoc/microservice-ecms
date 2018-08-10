@@ -21,6 +21,21 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
   public id: number;
   private _elementRef: ElementRef;
   private player: any; 
+  public resolutionArr = [{
+    label: '240',
+    res: 240,
+    postFix: '352x240'
+  },
+  {
+    label: '1080',
+    res: 1080,
+    postFix: '1920x1080'
+  },
+  {
+    label: 'default',
+    res: 'deafult',
+    postFix: ''
+  }];
 
   constructor(private dataService: DataService,
                 private route: ActivatedRoute,
@@ -39,38 +54,40 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
   ngAfterViewInit() {
     
     if (this.content != null && this.content['fileStatus'] == 'PUBLISHED') {
-      // let el = 'video_player';
-     
-      // this.player = videojs('#video_player', { plugins : { resolutionSelector : {} } }, function() {
-      //   //video configs
-      // });
-
-      this.player = videojs(document.getElementById('video_player'), {
-        plugins: {
-          videoJsResolutionSwitcher: {
-            default: 'low',
-            dynamicLabel: true
-          }
-        }
-      });
-
-      this.player.updateSrc([
-        {
-          src: 'https://d3njk02ga9lv3t.cloudfront.net/video/d7b38a21-5069-4f07-af9a-26866e53419f_HCL_TEST/HLS/d7b38a21-5069-4f07-af9a-26866e53419f_HCL_TEST352x240.m3u8',
-          type: 'application/x-mpegURL',
-          res: 480,
-          label: 'SD'
-        },
-        {
-          src: 'https://vjs.zencdn.net/v/oceans.mp4',
-          type: 'video/mp4',
-          res: 720,
-          label: 'HD'
-        },
-      ])
-
+      this.initPlayer();
     }
 
+  }
+
+
+  initPlayer() {
+
+    this.player = videojs(document.getElementById('video_player'), {
+      plugins: {
+        videoJsResolutionSwitcher: {
+          default: 'low',
+          dynamicLabel: true
+        }
+      }
+    });
+
+    let videoArr = [];
+    let pubUrlArr = this.content.publishURL.split('.');
+    let pubExt = pubUrlArr.pop();
+    let pubUrl = pubUrlArr.join('.');
+
+    this.resolutionArr.forEach((val) => {
+      let videObj = {
+        src: pubUrl + val.postFix + '.' + pubExt,
+        type: 'application/x-mpegURL',
+        res: val.res,
+        label: val.label
+      }
+
+      videoArr.push(videObj);
+    });
+
+    this.player.updateSrc(videoArr);
   }
 
   getSelectedContent(id) {
@@ -88,9 +105,13 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
 		  "processFileLocation": "ott-ingestion-bucket/video/9264aa53-bba1-4fea-8119-d7747300f3df_HCL_TEST.mp4",
 		  "processURL": null,
 		  "publishFileLocation": null,
-		  "publishURL": "http://techslides.com/demos/sample-videos/small.mp4",
+		  "publishURL": "https://d3njk02ga9lv3t.cloudfront.net/video/d7b38a21-5069-4f07-af9a-26866e53419f_HCL_TEST/HLS/d7b38a21-5069-4f07-af9a-26866e53419f_HCL_TEST.m3u8",
 		  "fileStatus": "PUBLISHED"
-		}
+    }
+    
+    if (this.content != null && this.content['fileStatus'] == 'PUBLISHED' && this.publishStatus == 'success') {
+      this.initPlayer();
+    }
 
     // this.contentSub = this.dataService.getContentById(id).subscribe(resp => {
     //   this.content = resp['data'];
@@ -131,8 +152,8 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
     this.transcodeSub = this.dataService.publishContent(publishObj).subscribe(resp => {
       
       if (resp.status == 'SUCCESS') {
-        this.getSelectedContent(this.id);
         this.publishStatus = 'success';
+        this.getSelectedContent(this.id);
       } else {
         this.publishStatus = 'error';
       }

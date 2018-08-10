@@ -121,7 +121,7 @@ export class AddContentCatalogComponent implements OnInit{
 
       this.sub = this.dataService.saveContent(this.formData).subscribe(resp => {
         this.showSpinner = false;
-        this.router.navigate(['/contentCatalog']);
+        this.router.navigate(['/contentCatalog/list']);
       });
     }    
   }
