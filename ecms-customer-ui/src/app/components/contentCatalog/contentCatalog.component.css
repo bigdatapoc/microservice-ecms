@@ -94,5 +94,5 @@ button.file-select {
 #video_player {
     width: 70%;
     height: 48vh;
-    margin-left: 15%;
+    margin: 0 auto;
 }

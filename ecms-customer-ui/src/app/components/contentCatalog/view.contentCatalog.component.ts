@@ -92,30 +92,9 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
 
   getSelectedContent(id) {
     
-    this.content = {
-		  "id": 8,
-		  "title": "TEST",
-		  "description": "TEST",
-		  "tags": null,
-		  "fileKey": "9264aa53-bba1-4fea-8119-d7747300f3df_HCL_TEST.mp4",
-		  "fileSize": 383631,
-		  "fileContentType": "video/mp4",
-		  "ingestionFileLocation": "ott-ingestion-bucket/video/9264aa53-bba1-4fea-8119-d7747300f3df_HCL_TEST.mp4",
-		  "ingestionURL": "https://s3.ap-south-1.amazonaws.com/ott-ingestion-bucket/video/9264aa53-bba1-4fea-8119-d7747300f3df_HCL_TEST.mp4",
-		  "processFileLocation": "ott-ingestion-bucket/video/9264aa53-bba1-4fea-8119-d7747300f3df_HCL_TEST.mp4",
-		  "processURL": null,
-		  "publishFileLocation": null,
-		  "publishURL": "https://d3njk02ga9lv3t.cloudfront.net/video/d7b38a21-5069-4f07-af9a-26866e53419f_HCL_TEST/HLS/d7b38a21-5069-4f07-af9a-26866e53419f_HCL_TEST.m3u8",
-		  "fileStatus": "PUBLISHED"
-    }
-    
-    if (this.content != null && this.content['fileStatus'] == 'PUBLISHED' && this.publishStatus == 'success') {
-      this.initPlayer();
-    }
-
-    // this.contentSub = this.dataService.getContentById(id).subscribe(resp => {
-    //   this.content = resp['data'];
-    // });
+     this.contentSub = this.dataService.getContentById(id).subscribe(resp => {
+       this.content = resp['data'];
+     });
   }
 
   transcode() {
@@ -161,6 +140,10 @@ export class ViewContentCatalogComponent implements OnInit, OnDestroy, AfterView
     });
   }
 
+	reload() {
+		window.location.reload();
+	}
+  
 
   ngOnDestroy() {
     this.sub.unsubscribe();
